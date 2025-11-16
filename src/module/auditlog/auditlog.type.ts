@@ -28,4 +28,13 @@ export type TAuditLogUpdate = TAuditLogLookup & TAuditLogUpdateFields;
 
 export type TAuditLogCreate = TAuditLogLookup & {
   action: string;
+  notes?: string;
+  metadata?: string;
+  isFirstScan?: boolean;
+  latitude?: number;
+  longitude?: number;
+  city?: string;
+  country?: string;
+  ipAddress?: string;
+  userAgent?: string;
 };

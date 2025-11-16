@@ -1,16 +1,22 @@
 import prisma from "../../config/prisma-client";
 import { Prisma, AuditLog } from "@prisma/client";
-import { TAuditLogCreate, TAuditLogUpdate } from "./auditlog.type";
+import {
+  TAuditLogCreate,
+  TAuditLogUpdate,
+  TAuditLogUpdateFields,
+} from "./auditlog.type";
 
 export class AuditLogRepository {
   private readonly db = prisma;
 
   async create(data: TAuditLogCreate): Promise<AuditLog> {
-    const { productUnitId, userId } = data;
+    const { productUnitId, userId, action, ...rest } = data;
+
     const payload: Prisma.AuditLogCreateInput = {
-      action: "UNIT_CREATED",
+      action,
       productUnit: { connect: { id: productUnitId } },
       user: userId ? { connect: { id: userId } } : undefined,
+      ...rest,
     };
 
     return this.db.auditLog.create({
@@ -22,21 +28,19 @@ export class AuditLogRepository {
     });
   }
 
-  async getByProductUnit(productUnitId: string) {
+  async getByProductUnit(productUnitId: string): Promise<AuditLog[]> {
     return this.db.auditLog.findMany({
       where: { productUnitId },
       orderBy: { timestamp: "desc" },
       include: { user: true },
     });
   }
-  async getLogsForUnit(unitId: string) {
-    return this.db.auditLog.findMany({
-      where: { productUnitId: unitId },
-      orderBy: { timestamp: "desc" },
-    });
+
+  async getLogsForUnit(unitId: string): Promise<AuditLog[]> {
+    return this.getByProductUnit(unitId);
   }
 
-  async getByUser(userId: string) {
+  async getByUser(userId: string): Promise<AuditLog[]> {
     return this.db.auditLog.findMany({
       where: { userId },
       orderBy: { timestamp: "desc" },
@@ -44,14 +48,30 @@ export class AuditLogRepository {
     });
   }
 
-  async getAll() {
+  async getAll(): Promise<AuditLog[]> {
     return this.db.auditLog.findMany({
       orderBy: { timestamp: "desc" },
       include: { user: true, productUnit: true },
     });
   }
 
-  async update(id: string, data: TAuditLogUpdate) {
+  // async update(data: TAuditLogUpdate): Promise<AuditLog> {
+  //   const { productUnitId, userId, ...rest } = data;
+
+  //   const auditLog = await this.db.auditLog.findFirst({
+  //     where: { productUnitId, userId },
+  //   });
+
+  //   if (!auditLog) throw new Error("Audit log not found");
+
+  //   return this.db.auditLog.update({
+  //     where: { id: auditLog.id },
+  //     data: rest,
+  //     include: { user: true, productUnit: true },
+  //   });
+  // }
+
+  async update(id: string, data: TAuditLogUpdateFields): Promise<AuditLog> {
     return this.db.auditLog.update({
       where: { id },
       data,
@@ -59,7 +79,7 @@ export class AuditLogRepository {
     });
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<AuditLog> {
     return this.db.auditLog.delete({ where: { id } });
   }
 }

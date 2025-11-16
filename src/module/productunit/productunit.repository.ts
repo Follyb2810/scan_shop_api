@@ -6,11 +6,11 @@ export class ProductUnitRepository {
   private readonly db = prisma;
 
   async create(data: TProductUnitCreate): Promise<ProductUnit> {
-    const { manufacturerId, productId, ...rest } = data;
+    const { productId, manufacturerId, ...rest } = data;
     const payload: Prisma.ProductUnitCreateInput = {
-      ...rest,
-      manufacturer: { connect: { id: manufacturerId } },
       product: { connect: { id: productId } },
+      manufacturer: { connect: { id: manufacturerId } },
+      ...rest,
     };
     return this.db.productUnit.create({ data: payload });
   }
@@ -21,11 +21,11 @@ export class ProductUnitRepository {
       include: { auditLogs: true, manufacturer: true, product: true },
     });
   }
+
   async countByProduct(productId: string): Promise<number> {
-    return this.db.productUnit.count({
-      where: { productId },
-    });
+    return this.db.productUnit.count({ where: { productId } });
   }
+
   async getByProduct(productId: string) {
     return this.db.productUnit.findMany({
       where: { productId },
