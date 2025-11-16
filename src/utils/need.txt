@@ -1,0 +1,122 @@
+import { PrismaClient } from '@prisma/client';
+import { v4 as uuidv4 } from 'uuid';
+import QRCode from 'qrcode';
+import bwipjs from 'bwip-js';
+
+const prisma = new PrismaClient();
+
+/**
+ * Generate n product units for a product
+ */
+export async function generateProductUnits(productId: string, manufacturerId: string, quantity: number) {
+  // Get last unit number for this product
+  const lastUnit = await prisma.productUnit.findFirst({
+    where: { productId },
+    orderBy: { unitNumber: 'desc' },
+  });
+
+  const startNumber = lastUnit ? lastUnit.unitNumber + 1 : 1;
+  const units = [];
+
+  for (let i = 0; i < quantity; i++) {
+    const unitUUID = uuidv4();
+    const unitNumber = startNumber + i;
+    const barcodeValue = `MSC|M:${manufacturerId}|P:${productId}|U:${unitUUID}|S:${unitNumber}`;
+
+    const productUnit = await prisma.productUnit.create({
+      data: {
+        productId,
+        manufacturerId,
+        unitNumber,
+        barcode: barcodeValue,
+      },
+    });
+
+    units.push(productUnit);
+  }
+
+  return units;
+}
+
+/**
+ * Generate QR code for a barcode value
+ */
+export async function generateQRCode(barcodeValue: string) {
+  const qrDataUrl = await QRCode.toDataURL(barcodeValue);
+  return qrDataUrl;
+}
+
+/**
+ * Generate barcode image (Code128) for a barcode value
+ */
+export async function generateBarcodeImage(barcodeValue: string) {
+  const pngBuffer = await bwipjs.toBuffer({
+    bcid: 'code128',
+    text: barcodeValue,
+    scale: 3,
+    height: 10,
+    includetext: true,
+    textxalign: 'center',
+  });
+
+  const barcodeDataUrl = `data:image/png;base64,${pngBuffer.toString('base64')}`;
+  return barcodeDataUrl;
+}
+
+
+
+import { Router } from 'express';
+import { generateProductUnits, generateQRCode, generateBarcodeImage } from '../services/productUnitService';
+import prisma from '../prismaClient';
+
+const router = Router();
+
+/**
+ * Create n units for a product
+ */
+router.post('/product/:productId/units', async (req, res) => {
+  const { productId } = req.params;
+  const { manufacturerId, quantity } = req.body;
+
+  if (!quantity || !manufacturerId) return res.status(400).json({ message: 'Missing required fields' });
+
+  const units = await generateProductUnits(productId, manufacturerId, quantity);
+  res.json({ units });
+});
+
+/**
+ * Get QR code for a unit
+ */
+router.get('/unit/:unitId/qr', async (req, res) => {
+  const { unitId } = req.params;
+  const unit = await prisma.productUnit.findUnique({ where: { id: unitId } });
+  if (!unit) return res.status(404).json({ message: 'Unit not found' });
+
+  const qrDataUrl = await generateQRCode(unit.barcode);
+  res.json({ qr: qrDataUrl });
+});
+
+/**
+ * Get barcode image for a unit
+ */
+router.get('/unit/:unitId/barcode', async (req, res) => {
+  const { unitId } = req.params;
+  const unit = await prisma.productUnit.findUnique({ where: { id: unitId } });
+  if (!unit) return res.status(404).json({ message: 'Unit not found' });
+
+  const barcodeDataUrl = await generateBarcodeImage(unit.barcode);
+  res.json({ barcode: barcodeDataUrl });
+});
+
+export default router;
+
+
+import express from 'express';
+import productUnitRoutes from './routes/productUnitRoutes';
+
+const app = express();
+app.use(express.json());
+
+app.use('/api', productUnitRoutes);
+
+app.listen(3000, () => console.log('Server running on port 3000'));

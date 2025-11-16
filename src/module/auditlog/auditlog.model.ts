@@ -1,0 +1,4 @@
+export interface AuditLogModel {
+// auditlogModel
+
+}
