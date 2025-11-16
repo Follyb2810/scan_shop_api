@@ -48,3 +48,5 @@ export class ProductService {
     return this.repo.delete(id);
   }
 }
+
+export const productService = new ProductService();

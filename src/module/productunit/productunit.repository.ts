@@ -1,12 +1,18 @@
 import prisma from "../../config/prisma-client";
 import { Prisma, ProductUnit } from "@prisma/client";
-import { TProductUnitUpdate } from "./productunit.type";
+import { TProductUnitCreate, TProductUnitUpdate } from "./productunit.type";
 
 export class ProductUnitRepository {
   private readonly db = prisma;
 
-  async create(data: Prisma.ProductUnitCreateInput): Promise<ProductUnit> {
-    return this.db.productUnit.create({ data });
+  async create(data: TProductUnitCreate): Promise<ProductUnit> {
+    const { manufacturerId, productId, ...rest } = data;
+    const payload: Prisma.ProductUnitCreateInput = {
+      ...rest,
+      manufacturer: { connect: { id: manufacturerId } },
+      product: { connect: { id: productId } },
+    };
+    return this.db.productUnit.create({ data: payload });
   }
 
   async getById(id: string) {
@@ -15,7 +21,11 @@ export class ProductUnitRepository {
       include: { auditLogs: true, manufacturer: true, product: true },
     });
   }
-
+  async countByProduct(productId: string): Promise<number> {
+    return this.db.productUnit.count({
+      where: { productId },
+    });
+  }
   async getByProduct(productId: string) {
     return this.db.productUnit.findMany({
       where: { productId },

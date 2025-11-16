@@ -3,10 +3,9 @@ import { manufacturerService } from "./manufacturer.service";
 import { AuthRequest } from "../../middlware/auth.middleware";
 
 export const ManufacturerController = {
-  // POST /manufacturer/apply
   apply: async (req: AuthRequest, res: Response) => {
     try {
-      const userId = req.userId!; 
+      const userId = req.userId!;
       const data = req.body;
 
       const manufacturer = await manufacturerService.apply(userId, data);

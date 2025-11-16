@@ -2,14 +2,30 @@ import { AuditLog } from "@prisma/client";
 
 export type TAuditLogID = AuditLog["id"];
 
-export type TAuditLogCreate = Omit<
-  AuditLog,
-  | "id"
-  | "timestamp"
-  | "user"
-  | "productUnit"
-  | "createdAt"
-  | "updatedAt"
+export type TAuditLogLookup = {
+  productUnitId: string;
+  userId?: string;
+};
+
+export type TAuditLogUpdateFields = Partial<
+  Pick<
+    AuditLog,
+    | "notes"
+    | "metadata"
+    | "ipAddress"
+    | "userAgent"
+    | "latitude"
+    | "longitude"
+    | "city"
+    | "country"
+    | "oldStatus"
+    | "newStatus"
+    | "isFirstScan"
+  >
 >;
 
-export type TAuditLogUpdate = Partial<TAuditLogCreate>;
+export type TAuditLogUpdate = TAuditLogLookup & TAuditLogUpdateFields;
+
+export type TAuditLogCreate = TAuditLogLookup & {
+  action: string;
+};

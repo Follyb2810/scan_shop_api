@@ -1,17 +1,41 @@
 import { Router } from "express";
-import { ProductController } from "./product.controller";
 import authMiddleware from "../../middlware/auth.middleware";
-// import { auth, manufacturerOnly } from "../middlewares/auth";
+import { TRole, verifyRole } from "../../middlware/verifyRole";
+import { ProductController } from "./product.controller";
 
 const router = Router();
-const ctrl = new ProductController();
 
-router.post("/", authMiddleware, authMiddleware, ctrl.create);
-router.get("/", ctrl.getAll);
-router.get("/my", authMiddleware, authMiddleware, ctrl.getMyProducts);
-router.get("/:id", ctrl.getById);
-router.patch("/:id", authMiddleware, authMiddleware, ctrl.update);
-router.patch("/:id/disable", authMiddleware, authMiddleware, ctrl.disable);
-router.delete("/:id", authMiddleware, authMiddleware, ctrl.delete);
+router.post(
+  "/",
+  authMiddleware,
+  verifyRole(TRole.MANUFACTURER),
+  ProductController.create
+);
+router.get("/", verifyRole(TRole.MANUFACTURER), ProductController.getAll);
+router.get(
+  "/my",
+  authMiddleware,
+  verifyRole(TRole.MANUFACTURER),
+  ProductController.getMyProducts
+);
+router.get("/:id", ProductController.getById);
+router.patch(
+  "/:id",
+  authMiddleware,
+  verifyRole(TRole.ADMIN, TRole.MODERATOR, TRole.MANUFACTURER),
+  ProductController.update
+);
+router.patch(
+  "/:id/disable",
+  authMiddleware,
+  verifyRole(TRole.ADMIN, TRole.MODERATOR, TRole.MANUFACTURER),
+  ProductController.disable
+);
+router.delete(
+  "/:id",
+  authMiddleware,
+  verifyRole(TRole.ADMIN, TRole.MODERATOR, TRole.MANUFACTURER),
+  ProductController.delete
+);
 
 export default router;

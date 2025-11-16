@@ -6,24 +6,11 @@ export class AuditLogRepository {
   private readonly db = prisma;
 
   async create(data: TAuditLogCreate): Promise<AuditLog> {
+    const { productUnitId, userId } = data;
     const payload: Prisma.AuditLogCreateInput = {
-      action: data.action,
-      metadata: data.metadata,
-      notes: data.notes,
-      userAgent: data.userAgent,
-      ipAddress: data.ipAddress,
-      latitude: data.latitude,
-      longitude: data.longitude,
-      city: data.city,
-      country: data.country,
-      isFirstScan: data.isFirstScan,
-      oldStatus: data.oldStatus,
-      newStatus: data.newStatus,
-      timestamp: new Date(),
-
-      // Relations
-      productUnit: { connect: { id: data.productUnitId } },
-      user: data.userId ? { connect: { id: data.userId } } : undefined,
+      action: "UNIT_CREATED",
+      productUnit: { connect: { id: productUnitId } },
+      user: userId ? { connect: { id: userId } } : undefined,
     };
 
     return this.db.auditLog.create({

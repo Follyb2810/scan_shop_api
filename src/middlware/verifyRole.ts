@@ -2,7 +2,14 @@ import { NextFunction, Request, RequestHandler, Response } from "express";
 import prisma from "../config/prisma-client";
 import { AuthRequest } from "./auth.middleware";
 
-export const verifyRole = (...allowRoles: string[]): RequestHandler => {
+export enum TRole {
+  ADMIN = "ADMIN",
+  MODERATOR = "MODERATOR",
+  MANUFACTURER = "MANUFACTURER",
+  USER = "USER",
+}
+
+export const verifyRole = (...allowRoles: TRole[]): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const authReq = req as AuthRequest;
     const userId = authReq.userId;
@@ -10,6 +17,7 @@ export const verifyRole = (...allowRoles: string[]): RequestHandler => {
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized: No userId found" });
     }
+
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
@@ -21,12 +29,17 @@ export const verifyRole = (...allowRoles: string[]): RequestHandler => {
       },
     });
 
-    const userRoles = user?.userRoles.map((ur) => ur.role.name) || [];
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized: User not found" });
+    }
 
-    if (
-      !userRoles.length ||
-      !userRoles.some((role) => allowRoles.includes(role))
-    ) {
+    const userRoles = user.userRoles.map((ur) => ur.role.name);
+
+    const hasRole = userRoles.some((role) =>
+      allowRoles.includes(role as TRole)
+    );
+
+    if (!hasRole) {
       return res.status(403).json({
         message: "Access denied: Insufficient privileges.",
       });

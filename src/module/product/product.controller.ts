@@ -1,57 +1,55 @@
 import { Request, Response } from "express";
-import { ProductService } from "./product.service";
+import { productService, ProductService } from "./product.service";
 import { AuthRequest } from "../../middlware/auth.middleware";
 
-export class ProductController {
-  private readonly service = new ProductService();
-
+export const ProductController = {
   // POST /products
-  create = async (req: AuthRequest, res: Response) => {
+  create: async (req: AuthRequest, res: Response) => {
     try {
       const userId = req.userId!;
       const data = req.body;
 
-      const product = await this.service.create(userId, data);
+      const product = await productService.create(userId, data);
       res.status(201).json({ message: "Product created", product });
     } catch (error: any) {
       res.status(400).json({ error: error.message });
     }
-  };
+  },
 
   // GET /products
-  getAll = async (_req: Request, res: Response) => {
-    const products = await this.service.getAll();
+  getAll: async (_req: Request, res: Response) => {
+    const products = await productService.getAll();
     res.json(products);
-  };
+  },
 
   // GET /products/:id
-  getById = async (req: Request, res: Response) => {
-    const product = await this.service.getById(req.params.id);
+  getById: async (req: Request, res: Response) => {
+    const product = await productService.getById(req.params.id);
     res.json(product);
-  };
+  },
 
   // GET /products/my
-  getMyProducts = async (req: AuthRequest, res: Response) => {
+  getMyProducts: async (req: AuthRequest, res: Response) => {
     const userId = req.userId!;
-    const products = await this.service.getMyProducts(userId);
+    const products = await productService.getMyProducts(userId);
     res.json(products);
-  };
+  },
 
   // PATCH /products/:id
-  update = async (req: Request, res: Response) => {
-    const product = await this.service.update(req.params.id, req.body);
+  update: async (req: Request, res: Response) => {
+    const product = await productService.update(req.params.id, req.body);
     res.json({ message: "Product updated", product });
-  };
+  },
 
   // PATCH /products/:id/disable
-  disable = async (req: Request, res: Response) => {
-    const result = await this.service.disable(req.params.id);
+  disable: async (req: Request, res: Response) => {
+    const result = await productService.disable(req.params.id);
     res.json({ message: "Product disabled", result });
-  };
+  },
 
   // DELETE /products/:id
-  delete = async (req: Request, res: Response) => {
-    const result = await this.service.delete(req.params.id);
+  delete: async (req: Request, res: Response) => {
+    const result = await productService.delete(req.params.id);
     res.json({ message: "Product deleted", result });
-  };
-}
+  },
+};

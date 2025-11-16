@@ -154,7 +154,7 @@ model ProductUnit {
   updatedAt DateTime @updatedAt
 
   product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
-  auditLogs AuditLog[]
+  auditLogs AuditLog[] 
 
   @@unique([productId, unitNumber])
   @@index([barcode])

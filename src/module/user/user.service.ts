@@ -17,11 +17,13 @@ export class UserService {
     const payload: Prisma.UserCreateInput = {
       ...data,
       password: hashedPassword,
-      role: "USER",
       isActive: true,
     };
 
-    return this.userRepo.create(payload);
+    const user = await this.userRepo.create(payload);
+    await this.userRepo.assignRole(user.id, "USER");
+
+    return user;
   }
 
   async login(email: string, password: string): Promise<User> {
@@ -39,7 +41,7 @@ export class UserService {
       throw new Error("User account is inactive");
     }
 
-    // TODO: Generate JWT token here if needed
+    // TODO: Generate JWT token if needed
     return user;
   }
 
@@ -62,6 +64,18 @@ export class UserService {
   async updatePassword(id: string, password: string): Promise<User> {
     const hashedPassword = await hashPwd(password);
     return this.userRepo.update(id, { password: hashedPassword });
+  }
+
+  async getUserRoles(userId: string) {
+    return this.userRepo.getUserRoles(userId);
+  }
+
+  async assignRole(userId: string, roleName: string) {
+    return this.userRepo.assignRole(userId, roleName);
+  }
+
+  async removeRole(userId: string, roleName: string) {
+    return this.userRepo.removeRole(userId, roleName);
   }
 }
 
