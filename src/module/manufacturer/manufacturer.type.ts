@@ -1,4 +1,6 @@
-import { Manufacturer } from "@prisma/client";
+// import { Manufacturer } from "@prisma/client";
+
+import { Manufacturer } from "../../generated/prisma/client";
 
 export type TManufacturerID = Manufacturer["id"];
 

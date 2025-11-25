@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -12,8 +11,8 @@ model User {
   id          String   @id @default(uuid())
   email       String   @unique
   password    String
-  firstName   String?
-  lastName    String?
+  firstName   String
+  lastName    String
   phoneNumber String?
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -155,7 +154,7 @@ model ProductUnit {
   updatedAt DateTime @updatedAt
 
   product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
-  auditLogs AuditLog[]
+  auditLogs AuditLog[] 
 
   @@unique([productId, unitNumber])
   @@index([barcode])
@@ -232,3 +231,4 @@ model AuditLog {
 //   REPORTED_SUSPICIOUS
 //   LOCATION_TRACKED
 // }
+

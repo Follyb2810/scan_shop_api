@@ -1,14 +1,10 @@
-import { Product } from "@prisma/client";
+import { Product } from "../../generated/prisma/client";
 
 export type TProductID = Product["id"];
 
 export type TProductCreate = Omit<
   Product,
-  | "id"
-  | "createdAt"
-  | "updatedAt"
-  | "manufacturer"
-  | "units"
+  "id" | "createdAt" | "updatedAt" | "manufacturer" | "units"
 >;
 
 export type TProductUpdate = Partial<TProductCreate>;

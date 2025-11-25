@@ -90,4 +90,136 @@ export class ProductUnitService {
 
     return this.productUnitRepo.delete(id);
   }
+
+  async scan(
+    id: string,
+    data: {
+      userId?: string;
+      latitude?: number;
+      longitude?: number;
+      city?: string;
+      country?: string;
+      ipAddress?: string;
+      userAgent?: string;
+    }
+  ) {
+    const unit = await this.productUnitRepo.getById(id);
+    if (!unit) throw new Error("Product unit not found.");
+
+    const isFirstScan = (unit.scannedCount || 0) === 0;
+    const scannedCount = (unit.scannedCount || 0) + 1;
+
+    const updatedUnit = await this.productUnitRepo.update(id, {
+      scannedCount,
+      lastScannedAt: new Date(),
+      firstScannedAt: isFirstScan ? new Date() : unit.firstScannedAt,
+      lastLatitude: data.latitude,
+      lastLongitude: data.longitude,
+      lastCity: data.city,
+      lastCountry: data.country,
+    });
+
+    await this.auditRepo.create({
+      productUnitId: id,
+      userId: data.userId,
+      action: isFirstScan ? "FIRST_SCAN" : "SUBSEQUENT_SCAN",
+      isFirstScan,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      city: data.city,
+      country: data.country,
+      ipAddress: data.ipAddress,
+      userAgent: data.userAgent,
+      metadata: JSON.stringify({
+        scanType: isFirstScan ? "first_scan" : "subsequent_scan",
+        timestamp: new Date().toISOString(),
+        scannedCount,
+      }),
+      notes: isFirstScan ? "First time scan" : "Duplicate scan detected",
+    });
+
+    return {
+      message: isFirstScan ? "Authentic product" : "Duplicate scan detected",
+      isFirstScan,
+      unit: updatedUnit,
+    };
+  }
+
+  async markAsSold(
+    id: string,
+    data: {
+      soldTo: string;
+      soldBy?: string;
+      notes?: string;
+    }
+  ) {
+    const updatedUnit = await this.productUnitRepo.update(id, {
+      status: "SOLD",
+      soldAt: new Date(),
+      soldTo: data.soldTo,
+      currentOwnerId: data.soldTo,
+    });
+
+    await this.auditRepo.create({
+      productUnitId: id,
+      userId: data.soldBy,
+      action: "MARKED_SOLD",
+      notes: data.notes || "Product unit marked as sold",
+      metadata: JSON.stringify({
+        soldTo: data.soldTo,
+        soldAt: new Date().toISOString(),
+      }),
+      isFirstScan: false,
+    });
+
+    return updatedUnit;
+  }
+
+  async reportSuspicious(
+    id: string,
+    data: {
+      reportedBy?: string;
+      notes: string;
+      latitude?: number;
+      longitude?: number;
+      city?: string;
+      country?: string;
+    }
+  ) {
+    const unit = await this.productUnitRepo.getById(id);
+    if (!unit) throw new Error("Product unit not found.");
+
+    const reportedCount = (unit.reportedCount || 0) + 1;
+
+    const updatedUnit = await this.productUnitRepo.update(id, {
+      isSuspicious: true,
+      suspiciousNotes: data.notes,
+      reportedCount,
+      lastLatitude: data.latitude,
+      lastLongitude: data.longitude,
+      lastCity: data.city,
+      lastCountry: data.country,
+    });
+
+    await this.auditRepo.create({
+      productUnitId: id,
+      userId: data.reportedBy,
+      action: "REPORTED_SUSPICIOUS",
+      notes: data.notes,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      city: data.city,
+      country: data.country,
+      metadata: JSON.stringify({
+        reportReason: data.notes,
+        reportedAt: new Date().toISOString(),
+        reportedCount,
+      }),
+      isFirstScan: false,
+    });
+
+    return updatedUnit;
+  }
 }
+
+export const productUnitService = new ProductUnitService();

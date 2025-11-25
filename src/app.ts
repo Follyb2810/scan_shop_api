@@ -5,10 +5,11 @@ import { createServer } from "http";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-// import loadRoute from "./module";
 import { allowedOrigins } from "./config/allowedOrigins";
 import { errorHandler } from "./errors/errorHandler";
 import path from "path";
+import loadRoute from "./module";
+import { setupSwagger } from "./swagger";
 const app = express();
 
 console.log(process.env.DATABASE_URL);
@@ -42,7 +43,8 @@ app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
-// loadRoute(app);
+setupSwagger(app);
+loadRoute(app);
 
 app.use(errorHandler);
 

@@ -1,54 +1,81 @@
-import jwt, { Secret, SignOptions } from "jsonwebtoken";
+import {
+  sign,
+  verify,
+  Secret,
+  SignOptions,
+  JwtPayload as JWT,
+} from "jsonwebtoken";
 
-type TPayload = {
+export interface JwtPayload {
   id: string;
-  sub: string;
   email?: string;
-  name?: string;
-  userId?: string;
-};
+  roles?: string[];
+}
 
 export class JwtService {
-  private static secret: Secret = process.env.JWT_SECRET!;
+  private static secret: Secret | null = null;
+
   private constructor() {}
 
-  static generateToken(
-    payload: TPayload,
-    expiresIn: SignOptions["expiresIn"] = "60d"
+  private static getSecret(): Secret {
+    if (!this.secret) {
+      this.secret = process.env.JWT_SECRET!;
+      if (!this.secret) {
+        throw new Error(
+          "JWT_SECRET is not defined. Make sure it is set in the environment variables."
+        );
+      }
+    }
+    return this.secret;
+  }
+
+  static signToken<T extends Record<string, any>>(
+    payload: T,
+    options?: SignOptions
   ): string {
-    return jwt.sign(payload, JwtService.secret, { expiresIn });
-  }
-
-  static verifyToken(token: string): TPayload {
-    return jwt.verify(token, JwtService.secret) as TPayload;
-  }
-
-  static decodeJwtBrowser(token: string): Partial<TPayload> | null {
     try {
-      const b64 = token.split(".")[1];
-      if (!b64) return null;
-
-      const json = atob(b64.replace(/-/g, "+").replace(/_/g, "/"));
-      // console.log(JSON.parse(json));
-      return JSON.parse(json);
-    } catch {
-      return null;
+      return sign(payload, this.getSecret(), {
+        expiresIn: "1000h",
+        ...options,
+      });
+    } catch (err) {
+      throw new Error(`JWT signing failed: ${(err as Error).message}`);
     }
   }
 
-  static decodeJwtServer(token: string): Partial<TPayload> | null {
+  static verifyToken<T extends JwtPayload = JwtPayload>(token: string): T {
     try {
-      const b64 = token.split(".")[1];
-      if (!b64) return null;
-
-      const json = Buffer.from(
-        b64.replace(/-/g, "+").replace(/_/g, "/"),
-        "base64"
-      ).toString("utf8");
-      // console.log(JSON.parse(json));
-      return JSON.parse(json);
-    } catch {
-      return null;
+      return verify(token, this.getSecret()) as T;
+    } catch (err) {
+      const error = err as any;
+      if (error.name === "TokenExpiredError") {
+        throw new Error("JWT token has expired");
+      }
+      if (error.name === "JsonWebTokenError") {
+        throw new Error("Invalid JWT token");
+      }
+      throw error;
     }
+  }
+
+  static generateAccessToken<T extends Record<string, any>>(
+    payload: T,
+    expiresIn: SignOptions["expiresIn"] = "1h"
+  ): string {
+    return this.signToken(payload, { expiresIn });
+  }
+
+  static generateRefreshToken<T extends Record<string, any>>(
+    payload: T,
+    expiresIn: SignOptions["expiresIn"] = "7d"
+  ): string {
+    return this.signToken(payload, { expiresIn });
+  }
+
+  static decodeToken<T = JwtPayload>(token: string): T & JWT {
+    return verify(token, this.getSecret(), { ignoreExpiration: true }) as T &
+      JWT;
   }
 }
+
+export default JwtService;

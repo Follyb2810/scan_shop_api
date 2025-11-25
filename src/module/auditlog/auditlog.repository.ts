@@ -1,10 +1,16 @@
-import prisma from "../../config/prisma-client";
-import { Prisma, AuditLog } from "@prisma/client";
+// import prisma from "../../config/prisma-client";
+// import { Prisma } from "@prisma/client";
 import {
   TAuditLogCreate,
   TAuditLogUpdate,
   TAuditLogUpdateFields,
 } from "./auditlog.type";
+import { prisma } from "../../config/prisma-client";
+import { AuditLog, Prisma } from "../../generated/prisma/client";
+
+// (property) AppointmentRepository.db: PrismaClient<{
+//     adapter: PrismaPg;
+// }, never, DefaultArgs>
 
 export class AuditLogRepository {
   private readonly db = prisma;

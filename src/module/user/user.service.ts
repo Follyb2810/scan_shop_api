@@ -1,12 +1,16 @@
 import { hashPwd, ComparePassword } from "../../utils/bcrypt";
 import { UserRepository } from "./user.repository";
-import { TUserCreate, TUserUpdate } from "./user.type";
-import { Prisma, User } from "@prisma/client";
+import { TUserCreate, TUserResponse, TUserUpdate } from "./user.type";
+import { Prisma, User } from "../../generated/prisma/client";
+import { JwtService } from "../../utils/jwt";
 
 export class UserService {
   constructor(private readonly userRepo = new UserRepository()) {}
 
-  async createUser(data: TUserCreate, password: string): Promise<User> {
+  async createUser(
+    data: TUserCreate,
+    password: string
+  ): Promise<TUserResponse> {
     const existingUser = await this.userRepo.findByEmail(data.email);
     if (existingUser) {
       throw new Error("Email already in use");
@@ -21,12 +25,17 @@ export class UserService {
     };
 
     const user = await this.userRepo.create(payload);
-    await this.userRepo.assignRole(user.id, "USER");
+    // await this.userRepo.assignRole(user.id, "USER");
 
-    return user;
+    const refreshToken = JwtService.generateRefreshToken({
+      id: user.id,
+      email: user.email,
+      // roles: user.role,
+    });
+    return { user, refreshToken };
   }
 
-  async login(email: string, password: string): Promise<User> {
+  async login(email: string, password: string): Promise<TUserResponse> {
     const user = await this.userRepo.findByEmail(email);
     if (!user) {
       throw new Error("Invalid email or password");
@@ -42,7 +51,12 @@ export class UserService {
     }
 
     // TODO: Generate JWT token if needed
-    return user;
+    const refreshToken = JwtService.generateRefreshToken({
+      id: user.id,
+      email: user.email,
+      // roles: user.role,
+    });
+    return { user, refreshToken };
   }
 
   async getAllUsers(): Promise<User[]> {

@@ -1,5 +1,6 @@
-import { User, Prisma, Role, UserRole } from "@prisma/client";
-import prisma from "../../config/prisma-client";
+import { prisma } from "../../config/prisma-client";
+import { User, Prisma, Role, UserRole } from "../../generated/prisma/client";
+// import prisma from "../../config/prisma-client";
 
 export function connectIf(id?: string) {
   return id ? { connect: { id } } : undefined;
@@ -9,8 +10,18 @@ export class UserRepository {
   private readonly db = prisma;
 
   async create(data: Prisma.UserCreateInput): Promise<User> {
+    let userRole = await this.db.role.findUnique({ where: { name: "USER" } });
+    if (!userRole) {
+      userRole = await this.db.role.create({ data: { name: "USER" } });
+    }
+
     return this.db.user.create({
-      data,
+      data: {
+        ...data,
+        userRoles: {
+          create: [{ roleId: userRole.id }],
+        },
+      },
       include: {
         manufacturer: true,
         auditLogs: true,

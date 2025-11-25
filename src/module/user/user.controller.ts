@@ -5,8 +5,8 @@ import { successHandler } from "../../errors/successHandler";
 
 export const UserController = {
   async create(req: AuthRequest, res: Response) {
-    const { password, ...rest } = req.body;
-    const result = await userService.createUser(rest, password);
+    const { password, email } = req.body;
+    const result = await userService.createUser(email, password);
     successHandler(res, result, "User Created Successfully", 201);
   },
 

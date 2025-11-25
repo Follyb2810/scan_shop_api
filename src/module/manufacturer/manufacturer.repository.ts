@@ -1,5 +1,7 @@
-import { Prisma, Manufacturer } from "@prisma/client";
-import prisma from "../../config/prisma-client";
+// import { Prisma, Manufacturer } from "@prisma/client";
+// import prisma from "../../config/prisma-client";
+import { prisma } from "../../config/prisma-client";
+import { Manufacturer, Prisma } from "../../generated/prisma/client";
 import { TManufacturerCreate, TManufacturerUpdate } from "./manufacturer.type";
 
 export class ManufacturerRepository {

@@ -1,6 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
-import prisma from "../config/prisma-client";
 import { AuthRequest } from "./auth.middleware";
+import { prisma } from "../config/prisma-client";
 
 export enum TRole {
   ADMIN = "ADMIN",

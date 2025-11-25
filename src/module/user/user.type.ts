@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User } from "../../generated/prisma/client";
 
 export type TUserID = User["id"];
 export type TUserRead = Omit<User, "createdAt" | "updatedAt" | "password">;
@@ -9,3 +9,5 @@ export type TUserCreate = Omit<
 >;
 
 export type TUserUpdate = Partial<Omit<TUserCreate, "id">>;
+
+export type TUserResponse = { user: User; refreshToken: string };

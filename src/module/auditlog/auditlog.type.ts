@@ -1,4 +1,4 @@
-import { AuditLog } from "@prisma/client";
+import { AuditLog } from "../../generated/prisma/client";
 
 export type TAuditLogID = AuditLog["id"];
 

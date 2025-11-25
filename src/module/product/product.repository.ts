@@ -1,5 +1,6 @@
-import prisma from "../../config/prisma-client";
-import { Prisma, Product } from "@prisma/client";
+// import prisma from "../../config/prisma-client";
+import { prisma } from "../../config/prisma-client";
+import { Prisma, Product } from "../../generated/prisma/client";
 import { TProductCreate, TProductUpdate } from "./product.type";
 
 export class ProductRepository {

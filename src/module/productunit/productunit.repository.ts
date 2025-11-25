@@ -1,5 +1,6 @@
-import prisma from "../../config/prisma-client";
-import { Prisma, ProductUnit } from "@prisma/client";
+// import prisma from "../../config/prisma-client";
+import { prisma } from "../../config/prisma-client";
+import { Prisma, ProductUnit } from "../../generated/prisma/client";
 import { TProductUnitCreate, TProductUnitUpdate } from "./productunit.type";
 
 export class ProductUnitRepository {
