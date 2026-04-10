@@ -1,4 +1,4 @@
-import { AuditLog } from "../../generated/prisma/client";
+import { AuditLog, Prisma } from "../../generated/prisma/client";
 
 export type TAuditLogID = AuditLog["id"];
 
@@ -38,3 +38,7 @@ export type TAuditLogCreate = TAuditLogLookup & {
   ipAddress?: string;
   userAgent?: string;
 };
+
+export type AuditLogWithResponse = Prisma.AuditLogGetPayload<{
+  include: { productUnit: true; user: true };
+}>;

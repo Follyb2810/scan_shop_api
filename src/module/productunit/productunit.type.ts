@@ -1,8 +1,7 @@
-import { ProductUnit } from "../../generated/prisma/client";
+import { Prisma, ProductUnit } from "../../generated/prisma/client";
 
 export type TProductUnitID = ProductUnit["id"];
 
-// Required fields for creating a unit
 export type TProductUnitCreateRequired = {
   productId: string;
   manufacturerId: string;
@@ -11,7 +10,6 @@ export type TProductUnitCreateRequired = {
   signature: string;
 };
 
-// Optional fields for creation
 export type TProductUnitCreateOptional = {
   qrCodeData?: string;
   status?: string;
@@ -32,9 +30,13 @@ export type TProductUnitCreateOptional = {
   scannedCount?: number;
 };
 
-// Full type for create
 export type TProductUnitCreate = TProductUnitCreateRequired &
   TProductUnitCreateOptional;
 
-// For update: all fields optional
 export type TProductUnitUpdate = Partial<TProductUnitCreate>;
+export type ProductWithResponse = Prisma.ProductUnitGetPayload<{
+  include: {
+    manufacturer: { select: { id: true; userId: true } };
+    product: { select: { id: true } };
+  };
+}>;

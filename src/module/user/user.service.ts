@@ -1,41 +1,31 @@
 import { hashPwd, ComparePassword } from "../../utils/bcrypt";
 import { UserRepository } from "./user.repository";
-import { TUserCreate, TUserResponse, TUserUpdate } from "./user.type";
-import { Prisma, User } from "../../generated/prisma/client";
-import { JwtService } from "../../utils/jwt";
+import { CreateUserBody, TUserUpdate, UserWithRoles } from "./user.type";
 
 export class UserService {
   constructor(private readonly userRepo = new UserRepository()) {}
 
-  async createUser(
-    data: TUserCreate,
-    password: string
-  ): Promise<TUserResponse> {
-    const existingUser = await this.userRepo.findByEmail(data.email);
+  async createUser({
+    email,
+    password,
+  }: CreateUserBody): Promise<UserWithRoles> {
+    const existingUser = await this.userRepo.findByEmail(email);
     if (existingUser) {
       throw new Error("Email already in use");
     }
 
     const hashedPassword = await hashPwd(password);
 
-    const payload: Prisma.UserCreateInput = {
-      ...data,
+    const user = await this.userRepo.create({
+      email,
       password: hashedPassword,
-      isActive: true,
-    };
-
-    const user = await this.userRepo.create(payload);
+    });
     // await this.userRepo.assignRole(user.id, "USER");
 
-    const refreshToken = JwtService.generateRefreshToken({
-      id: user.id,
-      email: user.email,
-      // roles: user.role,
-    });
-    return { user, refreshToken };
+    return user;
   }
 
-  async login(email: string, password: string): Promise<TUserResponse> {
+  async login(email: string, password: string): Promise<UserWithRoles> {
     const user = await this.userRepo.findByEmail(email);
     if (!user) {
       throw new Error("Invalid email or password");
@@ -50,32 +40,26 @@ export class UserService {
       throw new Error("User account is inactive");
     }
 
-    // TODO: Generate JWT token if needed
-    const refreshToken = JwtService.generateRefreshToken({
-      id: user.id,
-      email: user.email,
-      // roles: user.role,
-    });
-    return { user, refreshToken };
+    return user;
   }
 
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<UserWithRoles[]> {
     return this.userRepo.getAll();
   }
 
-  async getUserById(id: string): Promise<User | null> {
+  async getUserById(id: string): Promise<UserWithRoles | null> {
     return this.userRepo.getById(id);
   }
 
-  async updateUserById(id: string, data: TUserUpdate): Promise<User> {
+  async updateUserById(id: string, data: TUserUpdate): Promise<UserWithRoles> {
     return this.userRepo.update(id, data);
   }
 
-  async deleteUserById(id: string): Promise<User> {
+  async deleteUserById(id: string) {
     return this.userRepo.delete(id);
   }
 
-  async updatePassword(id: string, password: string): Promise<User> {
+  async updatePassword(id: string, password: string): Promise<UserWithRoles> {
     const hashedPassword = await hashPwd(password);
     return this.userRepo.update(id, { password: hashedPassword });
   }

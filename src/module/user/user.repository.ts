@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma-client";
 import { User, Prisma, Role, UserRole } from "../../generated/prisma/client";
+import { CreateUserBody, UserWithRoles } from "./user.type";
 // import prisma from "../../config/prisma-client";
 
 export function connectIf(id?: string) {
@@ -9,15 +10,20 @@ export function connectIf(id?: string) {
 export class UserRepository {
   private readonly db = prisma;
 
-  async create(data: Prisma.UserCreateInput): Promise<User> {
+  async create({ email, password }: CreateUserBody): Promise<UserWithRoles> {
     let userRole = await this.db.role.findUnique({ where: { name: "USER" } });
     if (!userRole) {
       userRole = await this.db.role.create({ data: { name: "USER" } });
     }
-
+    const payload: Prisma.UserCreateInput = {
+      email,
+      password,
+      isActive: true,
+    };
     return this.db.user.create({
       data: {
-        ...data,
+        ...payload,
+
         userRoles: {
           create: [{ roleId: userRole.id }],
         },
@@ -30,7 +36,7 @@ export class UserRepository {
     });
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<UserWithRoles | null> {
     return this.db.user.findUnique({
       where: { email },
       include: {
@@ -41,7 +47,7 @@ export class UserRepository {
     });
   }
 
-  async getAll(): Promise<User[]> {
+  async getAll(): Promise<UserWithRoles[]> {
     return this.db.user.findMany({
       include: {
         manufacturer: true,
@@ -51,7 +57,7 @@ export class UserRepository {
     });
   }
 
-  async getById(id: string): Promise<User | null> {
+  async getById(id: string): Promise<UserWithRoles | null> {
     return this.db.user.findUnique({
       where: { id },
       include: {
@@ -62,7 +68,10 @@ export class UserRepository {
     });
   }
 
-  async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+  async update(
+    id: string,
+    data: Prisma.UserUpdateInput
+  ): Promise<UserWithRoles> {
     return this.db.user.update({
       where: { id },
       data,

@@ -1,6 +1,6 @@
 // import { Manufacturer } from "@prisma/client";
 
-import { Manufacturer } from "../../generated/prisma/client";
+import { Manufacturer, Prisma } from "../../generated/prisma/client";
 
 export type TManufacturerID = Manufacturer["id"];
 
@@ -18,3 +18,13 @@ export type TManufacturerCreate = Omit<
 >;
 
 export type TManufacturerUpdate = Partial<TManufacturerCreate>;
+
+export type ManufacturerWithResponse = Prisma.ManufacturerGetPayload<{
+  include: {
+    user: { select: { id: true; email: true } };
+    products: true;
+    productUnits: true;
+  };
+}>;
+// export type ManufacturerWithUser;
+// export type ManufacturerWithProducts;

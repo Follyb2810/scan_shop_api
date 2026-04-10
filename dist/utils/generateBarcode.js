@@ -1,0 +1,41 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const bwip_js_1 = __importDefault(require("bwip-js"));
+function generateBarcode(barcodeValue) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // Generate PNG buffer
+        const pngBuffer = yield bwip_js_1.default.toBuffer({
+            bcid: "code128", // Barcode type
+            text: barcodeValue, // Text to encode
+            scale: 3, // 3x scaling
+            height: 10, // Barcode height in mm
+            includetext: true, // Show human-readable text
+            textxalign: "center",
+        });
+        // Convert buffer to base64 data URL (optional, for frontend)
+        const barcodeDataUrl = `data:image/png;base64,${pngBuffer.toString("base64")}`;
+        return { pngBuffer, barcodeDataUrl };
+    });
+}
+// router.get("/product-unit/:id/barcode", async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   const productUnit = await prisma.productUnit.findUnique({
+//     where: { id }
+//   });
+//   if (!productUnit) return res.status(404).json({ message: "Unit not found" });
+//   const { barcodeDataUrl } = await generateBarcode(productUnit.barcode);
+//   res.json({ barcode: barcodeDataUrl });
+// });
+//# sourceMappingURL=generateBarcode.js.map
