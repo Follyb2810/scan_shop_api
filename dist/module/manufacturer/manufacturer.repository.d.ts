@@ -5,28 +5,31 @@ export declare class ManufacturerRepository {
     apply(userId: string, data: TManufacturerCreate): Promise<Manufacturer>;
     getByUserId(userId: string): Promise<({
         user: {
+            status: string;
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             email: string;
             password: string;
             firstName: string | null;
             lastName: string | null;
             phoneNumber: string | null;
             isActive: boolean;
+            emailVerifiedAt: Date | null;
+            deletedAt: Date | null;
+            createdAt: Date;
+            updatedAt: Date;
         };
     } & {
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;
@@ -46,17 +49,17 @@ export declare class ManufacturerRepository {
         verifiedAt: Date | null;
     }) | null>;
     getPending(): Promise<{
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;
@@ -76,17 +79,17 @@ export declare class ManufacturerRepository {
         verifiedAt: Date | null;
     }[]>;
     approve(id: string, adminId: string): Promise<{
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;
@@ -106,17 +109,17 @@ export declare class ManufacturerRepository {
         verifiedAt: Date | null;
     }>;
     reject(id: string, adminId: string, notes?: string): Promise<{
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;

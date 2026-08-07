@@ -1,11 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.allowedOrigins = void 0;
-exports.allowedOrigins = [
-    "http://localhost:8081",
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:3000",
-    "http://localhost:4173",
-];
+const env_1 = require("./env");
+/** @deprecated Prefer `corsOrigins` from `src/config/env.ts` */
+exports.allowedOrigins = env_1.corsOrigins;
 //# sourceMappingURL=allowedOrigins.js.map

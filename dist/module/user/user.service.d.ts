@@ -9,15 +9,18 @@ export declare class UserService {
     getUserById(id: string): Promise<UserWithRoles | null>;
     updateUserById(id: string, data: TUserUpdate): Promise<UserWithRoles>;
     deleteUserById(id: string): Promise<{
+        status: string;
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         email: string;
         password: string;
         firstName: string | null;
         lastName: string | null;
         phoneNumber: string | null;
         isActive: boolean;
+        emailVerifiedAt: Date | null;
+        deletedAt: Date | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     updatePassword(id: string, password: string): Promise<UserWithRoles>;
     getUserRoles(userId: string): Promise<{

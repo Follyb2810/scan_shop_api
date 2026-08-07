@@ -1,7 +1,18 @@
 node_modules
-# Keep environment variables out of version control
 .env
+*.log
+dist
+coverage
+.DS_Store
 
+# Prisma generated client
 /src/generated/prisma
-
 /generated/prisma
+
+# Local SQLite (keep optional; often gitignored for clean clones)
+# Uncomment if you do not want to commit the prototype DB:
+# /dev.db
+# /dev.db-journal
+
+# Docker
+docker-data/

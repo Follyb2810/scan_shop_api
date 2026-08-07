@@ -2,17 +2,17 @@ import { TManufacturerCreate } from "./manufacturer.type";
 export declare class ManufacturerService {
     private readonly repo;
     apply(userId: string, data: TManufacturerCreate): Promise<{
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;
@@ -32,17 +32,17 @@ export declare class ManufacturerService {
         verifiedAt: Date | null;
     }>;
     getPending(): Promise<{
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;
@@ -62,17 +62,17 @@ export declare class ManufacturerService {
         verifiedAt: Date | null;
     }[]>;
     approve(id: string, adminId: string): Promise<{
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;
@@ -92,17 +92,17 @@ export declare class ManufacturerService {
         verifiedAt: Date | null;
     }>;
     reject(id: string, adminId: string, notes?: string): Promise<{
+        address: string;
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         userId: string;
         city: string;
         country: string;
-        createdAt: Date;
-        updatedAt: Date;
         companyName: string;
         companyEmail: string;
         companyPhone: string;
         website: string | null;
-        address: string;
         state: string;
         postalCode: string | null;
         licenseNumber: string;

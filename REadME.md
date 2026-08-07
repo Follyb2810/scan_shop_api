@@ -1,33 +1,27 @@
-# Shop Scan Backend — Secure Starter (Express + Prisma + SQLite)
+# Shop Scan / Healthcare OS API
 
-This document contains a secure, production-minded starter backend implementing:
+Multi-tenant Healthcare OS backend (in progress).  
+Follow the build guide: [`docs/BUILD_GUIDE.md`](docs/BUILD_GUIDE.md)
 
-- Manufacturer onboarding (application + admin approval)
-- Roles: ADMIN, MODERATOR, MANUFACTURER, USER
-- Products (catalog-level) and ProductUnits (individual physical units)
-- Per-unit barcode generation (unique barcode per produced item)
-- Scan verification for individual units
-- Audit logs
+## Quick start (development — SQLite)
 
----
+```bash
+cp .env.example .env
+npm install
+npm run prisma:generate
+npm run dev
+```
 
-## Highlights of the design
+Health: [http://localhost:5000/api/v1/health](http://localhost:5000/api/v1/health)
 
-- **Manufacturer onboarding**: manufacturers **cannot** self-register as `MANUFACTURER`. They submit an application; admin reviews & approves. Admin creates the `Manufacturer` and links a `User` with role `MANUFACTURER` to it.
+## Docker infra (Postgres + Redis)
 
-- **Product vs ProductUnit**: A `Product` represents a product model (e.g., "Product A"). When a manufacturer reports producing `quantity` units, the backend creates `quantity` `ProductUnit` records — each with a unique `barcodeData`. Scanning verifies the unit, not only the product model. This lets you mark individual units as sold/used and track per-unit audit logs.
+```bash
+npm run docker:up
+```
 
-- **Barcode uniqueness & forgery resistance**: Barcode payload includes manufacturer id, product id, unit serial, and an HMAC signature (configurable secret). This prevents easy forging of barcode strings.
+The API still uses SQLite locally by default. See [`docs/deployment/setup.md`](docs/deployment/setup.md).
 
-- **Scanner flow**: Scanner posts `barcodeData` to `/products/scan`. The backend verifies HMAC and then looks up the `ProductUnit`.
+## Status
 
----
-
-### barcode
-
-### MSC|M:{manufacturerId}|P:{productId}|U:{unitUUID}|S:{unitNumber}
-
-### MSC|M:98c2-44ab|P:a12b-889c|U:772f-e21d-992e|S:104
-
-### MSC = “Manufacturer Supply Chain” (your namespace)
-# scan_shop_api
+See [`docs/progress/STATUS.md`](docs/progress/STATUS.md).

@@ -1,57 +1,82 @@
-import dotenv from "dotenv";
-dotenv.config();
-import express, { Request, Response, NextFunction } from "express";
-import { createServer } from "http";
 import cors from "cors";
+import express, { Application } from "express";
 import helmet from "helmet";
-import morgan from "morgan";
-import { allowedOrigins } from "./config/allowedOrigins";
-import { errorHandler } from "./errors/errorHandler";
-import path from "path";
-import loadRoute from "./module";
-import { setupSwagger } from "./swagger";
-const app = express();
+import pinoHttp from "pino-http";
+import { v1Router } from "./api/v1/routes";
+import { corsOrigins, env } from "./config/env";
+import { logger } from "./config/logger";
+import { setupSwagger } from "./config/swagger";
+import {
+  auditRequest,
+  authenticateOptional,
+  errorHandler,
+  loadRbac,
+  notFoundHandler,
+  rateLimitMiddleware,
+  requestContext,
+  resolveTenant,
+} from "./middleware";
 
-console.log(process.env.DATABASE_URL);
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  })
-);
-app.use(express.json());
-app.use(helmet());
-// app.use(morgan("combined"));
-app.use(morgan("tiny"));
-app.disable("x-powered-by");
-app.set("trust proxy", true);
-app.use(express.json());
+export function createApp(): Application {
+  const app = express();
 
-app.get("/", (req, res) => res.redirect("/api-docs"));
+  app.disable("x-powered-by");
+  app.set("trust proxy", true);
 
-/**
- * @openapi
- * /health:
- *   get:
- *     summary: Health check
- *     responses:
- *       200:
- *         description: OK
- */
-app.get("/health", (req: Request, res: Response) => {
-  res.json({ status: "ok" });
-});
+  app.use(
+    pinoHttp({
+      logger,
+      autoLogging: env.NODE_ENV !== "test",
+      customProps: (req) => ({
+        requestId: req.context?.requestId,
+        userId: req.context?.userId,
+        organizationId: req.context?.organizationId,
+      }),
+    })
+  );
 
-setupSwagger(app);
-loadRoute(app);
+  app.use(
+    cors({
+      origin: corsOrigins,
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-Organization-Id",
+        "X-Branch-Id",
+        "X-Request-Id",
+        "Idempotency-Key",
+      ],
+    })
+  );
+  app.use(helmet({ contentSecurityPolicy: false })); // Swagger UI compatibility
+  app.use(express.json({ limit: "1mb" }));
+  app.use(express.urlencoded({ extended: true }));
+  app.use(rateLimitMiddleware);
 
-app.use(errorHandler);
+  // Global request pipeline
+  app.use(requestContext);
+  app.use(authenticateOptional);
+  app.use(resolveTenant);
+  app.use(loadRbac);
+  app.use(auditRequest);
 
-// const httpServer = createServer(app);
+  app.get("/", (_req, res) => res.redirect("/api-docs"));
 
-const PORT = process.env.PORT || 5000;
+  app.use("/api/v1", v1Router);
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+  app.get("/health", (_req, res) => {
+    res.json({
+      success: true,
+      data: { status: "ok", deprecatedPath: true, use: "/api/v1/health" },
+    });
+  });
+
+  setupSwagger(app);
+
+  app.use(notFoundHandler);
+  app.use(errorHandler);
+
+  return app;
+}

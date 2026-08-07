@@ -5,17 +5,17 @@ export declare class ProductUnitRepository {
     create(data: TProductUnitCreate): Promise<ProductUnit>;
     getById(id: string): Promise<({
         manufacturer: {
+            address: string;
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: string;
             city: string;
             country: string;
-            createdAt: Date;
-            updatedAt: Date;
             companyName: string;
             companyEmail: string;
             companyPhone: string;
             website: string | null;
-            address: string;
             state: string;
             postalCode: string | null;
             licenseNumber: string;
@@ -37,10 +37,10 @@ export declare class ProductUnitRepository {
         product: {
             name: string;
             id: string;
-            manufacturerId: string;
+            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            isActive: boolean;
+            manufacturerId: string;
             description: string | null;
             category: string;
             sku: string;
@@ -71,14 +71,16 @@ export declare class ProductUnitRepository {
             timestamp: Date;
         }[];
     } & {
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -95,23 +97,21 @@ export declare class ProductUnitRepository {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }) | null>;
     countByProduct(productId: string): Promise<number>;
     getByProduct(productId: string): Promise<({
         manufacturer: {
+            address: string;
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: string;
             city: string;
             country: string;
-            createdAt: Date;
-            updatedAt: Date;
             companyName: string;
             companyEmail: string;
             companyPhone: string;
             website: string | null;
-            address: string;
             state: string;
             postalCode: string | null;
             licenseNumber: string;
@@ -133,10 +133,10 @@ export declare class ProductUnitRepository {
         product: {
             name: string;
             id: string;
-            manufacturerId: string;
+            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            isActive: boolean;
+            manufacturerId: string;
             description: string | null;
             category: string;
             sku: string;
@@ -167,14 +167,16 @@ export declare class ProductUnitRepository {
             timestamp: Date;
         }[];
     } & {
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -191,18 +193,18 @@ export declare class ProductUnitRepository {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     })[]>;
     update(id: string, data: TProductUnitUpdate): Promise<{
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -219,18 +221,18 @@ export declare class ProductUnitRepository {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     delete(id: string): Promise<{
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -247,8 +249,6 @@ export declare class ProductUnitRepository {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
 }
 //# sourceMappingURL=productunit.repository.d.ts.map

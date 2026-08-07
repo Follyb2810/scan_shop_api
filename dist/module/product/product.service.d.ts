@@ -5,10 +5,10 @@ export declare class ProductService {
     create(userId: string, data: TProductCreate): Promise<{
         name: string;
         id: string;
-        manufacturerId: string;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
-        isActive: boolean;
+        manufacturerId: string;
         description: string | null;
         category: string;
         sku: string;
@@ -22,17 +22,17 @@ export declare class ProductService {
     }>;
     getAll(): Promise<({
         manufacturer: {
+            address: string;
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: string;
             city: string;
             country: string;
-            createdAt: Date;
-            updatedAt: Date;
             companyName: string;
             companyEmail: string;
             companyPhone: string;
             website: string | null;
-            address: string;
             state: string;
             postalCode: string | null;
             licenseNumber: string;
@@ -54,10 +54,10 @@ export declare class ProductService {
     } & {
         name: string;
         id: string;
-        manufacturerId: string;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
-        isActive: boolean;
+        manufacturerId: string;
         description: string | null;
         category: string;
         sku: string;
@@ -71,17 +71,17 @@ export declare class ProductService {
     })[]>;
     getById(id: string): Promise<({
         manufacturer: {
+            address: string;
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: string;
             city: string;
             country: string;
-            createdAt: Date;
-            updatedAt: Date;
             companyName: string;
             companyEmail: string;
             companyPhone: string;
             website: string | null;
-            address: string;
             state: string;
             postalCode: string | null;
             licenseNumber: string;
@@ -101,14 +101,16 @@ export declare class ProductService {
             verifiedAt: Date | null;
         };
         units: {
+            status: string;
             id: string;
-            barcode: string;
-            productId: string;
+            createdAt: Date;
+            updatedAt: Date;
             manufacturerId: string;
+            productId: string;
+            barcode: string;
             unitNumber: number;
             qrCodeData: string | null;
             signature: string | null;
-            status: string;
             isAuthentic: boolean;
             firstScannedAt: Date | null;
             firstScannedBy: string | null;
@@ -125,16 +127,14 @@ export declare class ProductService {
             reportedCount: number;
             isSuspicious: boolean;
             suspiciousNotes: string | null;
-            createdAt: Date;
-            updatedAt: Date;
         }[];
     } & {
         name: string;
         id: string;
-        manufacturerId: string;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
-        isActive: boolean;
+        manufacturerId: string;
         description: string | null;
         category: string;
         sku: string;
@@ -148,14 +148,16 @@ export declare class ProductService {
     }) | null>;
     getMyProducts(userId: string): Promise<({
         units: {
+            status: string;
             id: string;
-            barcode: string;
-            productId: string;
+            createdAt: Date;
+            updatedAt: Date;
             manufacturerId: string;
+            productId: string;
+            barcode: string;
             unitNumber: number;
             qrCodeData: string | null;
             signature: string | null;
-            status: string;
             isAuthentic: boolean;
             firstScannedAt: Date | null;
             firstScannedBy: string | null;
@@ -172,16 +174,14 @@ export declare class ProductService {
             reportedCount: number;
             isSuspicious: boolean;
             suspiciousNotes: string | null;
-            createdAt: Date;
-            updatedAt: Date;
         }[];
     } & {
         name: string;
         id: string;
-        manufacturerId: string;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
-        isActive: boolean;
+        manufacturerId: string;
         description: string | null;
         category: string;
         sku: string;
@@ -195,17 +195,17 @@ export declare class ProductService {
     })[]>;
     update(id: string, data: TProductUpdate): Promise<{
         manufacturer: {
+            address: string;
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: string;
             city: string;
             country: string;
-            createdAt: Date;
-            updatedAt: Date;
             companyName: string;
             companyEmail: string;
             companyPhone: string;
             website: string | null;
-            address: string;
             state: string;
             postalCode: string | null;
             licenseNumber: string;
@@ -225,14 +225,16 @@ export declare class ProductService {
             verifiedAt: Date | null;
         };
         units: {
+            status: string;
             id: string;
-            barcode: string;
-            productId: string;
+            createdAt: Date;
+            updatedAt: Date;
             manufacturerId: string;
+            productId: string;
+            barcode: string;
             unitNumber: number;
             qrCodeData: string | null;
             signature: string | null;
-            status: string;
             isAuthentic: boolean;
             firstScannedAt: Date | null;
             firstScannedBy: string | null;
@@ -249,16 +251,14 @@ export declare class ProductService {
             reportedCount: number;
             isSuspicious: boolean;
             suspiciousNotes: string | null;
-            createdAt: Date;
-            updatedAt: Date;
         }[];
     } & {
         name: string;
         id: string;
-        manufacturerId: string;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
-        isActive: boolean;
+        manufacturerId: string;
         description: string | null;
         category: string;
         sku: string;
@@ -273,10 +273,10 @@ export declare class ProductService {
     disable(id: string): Promise<{
         name: string;
         id: string;
-        manufacturerId: string;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
-        isActive: boolean;
+        manufacturerId: string;
         description: string | null;
         category: string;
         sku: string;
@@ -291,10 +291,10 @@ export declare class ProductService {
     delete(id: string): Promise<{
         name: string;
         id: string;
-        manufacturerId: string;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
-        isActive: boolean;
+        manufacturerId: string;
         description: string | null;
         category: string;
         sku: string;

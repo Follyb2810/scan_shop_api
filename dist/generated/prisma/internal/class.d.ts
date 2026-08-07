@@ -123,6 +123,226 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
         omit: OmitOpts;
     }>;
     /**
+     * `prisma.session`: Exposes CRUD operations for the **Session** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Sessions
+      * const sessions = await prisma.session.findMany()
+      * ```
+      */
+    get session(): Prisma.SessionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more RefreshTokens
+      * const refreshTokens = await prisma.refreshToken.findMany()
+      * ```
+      */
+    get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.device`: Exposes CRUD operations for the **Device** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Devices
+      * const devices = await prisma.device.findMany()
+      * ```
+      */
+    get device(): Prisma.DeviceDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.loginHistory`: Exposes CRUD operations for the **LoginHistory** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more LoginHistories
+      * const loginHistories = await prisma.loginHistory.findMany()
+      * ```
+      */
+    get loginHistory(): Prisma.LoginHistoryDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.twoFactorSecret`: Exposes CRUD operations for the **TwoFactorSecret** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more TwoFactorSecrets
+      * const twoFactorSecrets = await prisma.twoFactorSecret.findMany()
+      * ```
+      */
+    get twoFactorSecret(): Prisma.TwoFactorSecretDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.emailVerificationToken`: Exposes CRUD operations for the **EmailVerificationToken** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more EmailVerificationTokens
+      * const emailVerificationTokens = await prisma.emailVerificationToken.findMany()
+      * ```
+      */
+    get emailVerificationToken(): Prisma.EmailVerificationTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.passwordResetToken`: Exposes CRUD operations for the **PasswordResetToken** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more PasswordResetTokens
+      * const passwordResetTokens = await prisma.passwordResetToken.findMany()
+      * ```
+      */
+    get passwordResetToken(): Prisma.PasswordResetTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.permission`: Exposes CRUD operations for the **Permission** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Permissions
+      * const permissions = await prisma.permission.findMany()
+      * ```
+      */
+    get permission(): Prisma.PermissionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.platformRole`: Exposes CRUD operations for the **PlatformRole** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more PlatformRoles
+      * const platformRoles = await prisma.platformRole.findMany()
+      * ```
+      */
+    get platformRole(): Prisma.PlatformRoleDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.platformUserRole`: Exposes CRUD operations for the **PlatformUserRole** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more PlatformUserRoles
+      * const platformUserRoles = await prisma.platformUserRole.findMany()
+      * ```
+      */
+    get platformUserRole(): Prisma.PlatformUserRoleDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.organizationType`: Exposes CRUD operations for the **OrganizationType** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OrganizationTypes
+      * const organizationTypes = await prisma.organizationType.findMany()
+      * ```
+      */
+    get organizationType(): Prisma.OrganizationTypeDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.organization`: Exposes CRUD operations for the **Organization** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Organizations
+      * const organizations = await prisma.organization.findMany()
+      * ```
+      */
+    get organization(): Prisma.OrganizationDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.organizationProfile`: Exposes CRUD operations for the **OrganizationProfile** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OrganizationProfiles
+      * const organizationProfiles = await prisma.organizationProfile.findMany()
+      * ```
+      */
+    get organizationProfile(): Prisma.OrganizationProfileDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.branch`: Exposes CRUD operations for the **Branch** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Branches
+      * const branches = await prisma.branch.findMany()
+      * ```
+      */
+    get branch(): Prisma.BranchDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.organizationRole`: Exposes CRUD operations for the **OrganizationRole** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OrganizationRoles
+      * const organizationRoles = await prisma.organizationRole.findMany()
+      * ```
+      */
+    get organizationRole(): Prisma.OrganizationRoleDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.rolePermission`: Exposes CRUD operations for the **RolePermission** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more RolePermissions
+      * const rolePermissions = await prisma.rolePermission.findMany()
+      * ```
+      */
+    get rolePermission(): Prisma.RolePermissionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.membership`: Exposes CRUD operations for the **Membership** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Memberships
+      * const memberships = await prisma.membership.findMany()
+      * ```
+      */
+    get membership(): Prisma.MembershipDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.membershipRole`: Exposes CRUD operations for the **MembershipRole** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more MembershipRoles
+      * const membershipRoles = await prisma.membershipRole.findMany()
+      * ```
+      */
+    get membershipRole(): Prisma.MembershipRoleDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.orgRoleTemplate`: Exposes CRUD operations for the **OrgRoleTemplate** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OrgRoleTemplates
+      * const orgRoleTemplates = await prisma.orgRoleTemplate.findMany()
+      * ```
+      */
+    get orgRoleTemplate(): Prisma.OrgRoleTemplateDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.orgRoleTemplatePermission`: Exposes CRUD operations for the **OrgRoleTemplatePermission** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OrgRoleTemplatePermissions
+      * const orgRoleTemplatePermissions = await prisma.orgRoleTemplatePermission.findMany()
+      * ```
+      */
+    get orgRoleTemplatePermission(): Prisma.OrgRoleTemplatePermissionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
      * `prisma.role`: Exposes CRUD operations for the **Role** model.
       * Example usage:
       * ```ts
@@ -178,6 +398,17 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
         omit: OmitOpts;
     }>;
     /**
+     * `prisma.productUnitAuditLog`: Exposes CRUD operations for the **ProductUnitAuditLog** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more ProductUnitAuditLogs
+      * const productUnitAuditLogs = await prisma.productUnitAuditLog.findMany()
+      * ```
+      */
+    get productUnitAuditLog(): Prisma.ProductUnitAuditLogDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
      * `prisma.auditLog`: Exposes CRUD operations for the **AuditLog** model.
       * Example usage:
       * ```ts
@@ -186,6 +417,391 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
       * ```
       */
     get auditLog(): Prisma.AuditLogDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.medicineCategory`: Exposes CRUD operations for the **MedicineCategory** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more MedicineCategories
+      * const medicineCategories = await prisma.medicineCategory.findMany()
+      * ```
+      */
+    get medicineCategory(): Prisma.MedicineCategoryDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.dosageForm`: Exposes CRUD operations for the **DosageForm** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more DosageForms
+      * const dosageForms = await prisma.dosageForm.findMany()
+      * ```
+      */
+    get dosageForm(): Prisma.DosageFormDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.packagingType`: Exposes CRUD operations for the **PackagingType** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more PackagingTypes
+      * const packagingTypes = await prisma.packagingType.findMany()
+      * ```
+      */
+    get packagingType(): Prisma.PackagingTypeDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.productFamily`: Exposes CRUD operations for the **ProductFamily** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more ProductFamilies
+      * const productFamilies = await prisma.productFamily.findMany()
+      * ```
+      */
+    get productFamily(): Prisma.ProductFamilyDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.brand`: Exposes CRUD operations for the **Brand** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Brands
+      * const brands = await prisma.brand.findMany()
+      * ```
+      */
+    get brand(): Prisma.BrandDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.medicine`: Exposes CRUD operations for the **Medicine** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Medicines
+      * const medicines = await prisma.medicine.findMany()
+      * ```
+      */
+    get medicine(): Prisma.MedicineDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.variant`: Exposes CRUD operations for the **Variant** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Variants
+      * const variants = await prisma.variant.findMany()
+      * ```
+      */
+    get variant(): Prisma.VariantDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.packageDefinition`: Exposes CRUD operations for the **PackageDefinition** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more PackageDefinitions
+      * const packageDefinitions = await prisma.packageDefinition.findMany()
+      * ```
+      */
+    get packageDefinition(): Prisma.PackageDefinitionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.batch`: Exposes CRUD operations for the **Batch** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Batches
+      * const batches = await prisma.batch.findMany()
+      * ```
+      */
+    get batch(): Prisma.BatchDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.warehouseType`: Exposes CRUD operations for the **WarehouseType** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more WarehouseTypes
+      * const warehouseTypes = await prisma.warehouseType.findMany()
+      * ```
+      */
+    get warehouseType(): Prisma.WarehouseTypeDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.warehouse`: Exposes CRUD operations for the **Warehouse** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Warehouses
+      * const warehouses = await prisma.warehouse.findMany()
+      * ```
+      */
+    get warehouse(): Prisma.WarehouseDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.inventoryPosition`: Exposes CRUD operations for the **InventoryPosition** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more InventoryPositions
+      * const inventoryPositions = await prisma.inventoryPosition.findMany()
+      * ```
+      */
+    get inventoryPosition(): Prisma.InventoryPositionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.inventoryMovement`: Exposes CRUD operations for the **InventoryMovement** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more InventoryMovements
+      * const inventoryMovements = await prisma.inventoryMovement.findMany()
+      * ```
+      */
+    get inventoryMovement(): Prisma.InventoryMovementDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.packagingInstance`: Exposes CRUD operations for the **PackagingInstance** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more PackagingInstances
+      * const packagingInstances = await prisma.packagingInstance.findMany()
+      * ```
+      */
+    get packagingInstance(): Prisma.PackagingInstanceDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.trackableUnit`: Exposes CRUD operations for the **TrackableUnit** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more TrackableUnits
+      * const trackableUnits = await prisma.trackableUnit.findMany()
+      * ```
+      */
+    get trackableUnit(): Prisma.TrackableUnitDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.scanEvent`: Exposes CRUD operations for the **ScanEvent** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more ScanEvents
+      * const scanEvents = await prisma.scanEvent.findMany()
+      * ```
+      */
+    get scanEvent(): Prisma.ScanEventDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.custodyTransfer`: Exposes CRUD operations for the **CustodyTransfer** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more CustodyTransfers
+      * const custodyTransfers = await prisma.custodyTransfer.findMany()
+      * ```
+      */
+    get custodyTransfer(): Prisma.CustodyTransferDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.custodyTransferLine`: Exposes CRUD operations for the **CustodyTransferLine** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more CustodyTransferLines
+      * const custodyTransferLines = await prisma.custodyTransferLine.findMany()
+      * ```
+      */
+    get custodyTransferLine(): Prisma.CustodyTransferLineDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.customerProfile`: Exposes CRUD operations for the **CustomerProfile** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more CustomerProfiles
+      * const customerProfiles = await prisma.customerProfile.findMany()
+      * ```
+      */
+    get customerProfile(): Prisma.CustomerProfileDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.address`: Exposes CRUD operations for the **Address** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Addresses
+      * const addresses = await prisma.address.findMany()
+      * ```
+      */
+    get address(): Prisma.AddressDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.marketplaceCategory`: Exposes CRUD operations for the **MarketplaceCategory** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more MarketplaceCategories
+      * const marketplaceCategories = await prisma.marketplaceCategory.findMany()
+      * ```
+      */
+    get marketplaceCategory(): Prisma.MarketplaceCategoryDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.listing`: Exposes CRUD operations for the **Listing** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Listings
+      * const listings = await prisma.listing.findMany()
+      * ```
+      */
+    get listing(): Prisma.ListingDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.cart`: Exposes CRUD operations for the **Cart** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Carts
+      * const carts = await prisma.cart.findMany()
+      * ```
+      */
+    get cart(): Prisma.CartDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.cartItem`: Exposes CRUD operations for the **CartItem** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more CartItems
+      * const cartItems = await prisma.cartItem.findMany()
+      * ```
+      */
+    get cartItem(): Prisma.CartItemDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.order`: Exposes CRUD operations for the **Order** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Orders
+      * const orders = await prisma.order.findMany()
+      * ```
+      */
+    get order(): Prisma.OrderDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.orderLine`: Exposes CRUD operations for the **OrderLine** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more OrderLines
+      * const orderLines = await prisma.orderLine.findMany()
+      * ```
+      */
+    get orderLine(): Prisma.OrderLineDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.wishlistItem`: Exposes CRUD operations for the **WishlistItem** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more WishlistItems
+      * const wishlistItems = await prisma.wishlistItem.findMany()
+      * ```
+      */
+    get wishlistItem(): Prisma.WishlistItemDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.listingReview`: Exposes CRUD operations for the **ListingReview** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more ListingReviews
+      * const listingReviews = await prisma.listingReview.findMany()
+      * ```
+      */
+    get listingReview(): Prisma.ListingReviewDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.coupon`: Exposes CRUD operations for the **Coupon** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Coupons
+      * const coupons = await prisma.coupon.findMany()
+      * ```
+      */
+    get coupon(): Prisma.CouponDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.payment`: Exposes CRUD operations for the **Payment** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Payments
+      * const payments = await prisma.payment.findMany()
+      * ```
+      */
+    get payment(): Prisma.PaymentDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Notifications
+      * const notifications = await prisma.notification.findMany()
+      * ```
+      */
+    get notification(): Prisma.NotificationDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.workflowDefinition`: Exposes CRUD operations for the **WorkflowDefinition** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more WorkflowDefinitions
+      * const workflowDefinitions = await prisma.workflowDefinition.findMany()
+      * ```
+      */
+    get workflowDefinition(): Prisma.WorkflowDefinitionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.workflowStepDefinition`: Exposes CRUD operations for the **WorkflowStepDefinition** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more WorkflowStepDefinitions
+      * const workflowStepDefinitions = await prisma.workflowStepDefinition.findMany()
+      * ```
+      */
+    get workflowStepDefinition(): Prisma.WorkflowStepDefinitionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.workflowInstance`: Exposes CRUD operations for the **WorkflowInstance** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more WorkflowInstances
+      * const workflowInstances = await prisma.workflowInstance.findMany()
+      * ```
+      */
+    get workflowInstance(): Prisma.WorkflowInstanceDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.workflowAction`: Exposes CRUD operations for the **WorkflowAction** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more WorkflowActions
+      * const workflowActions = await prisma.workflowAction.findMany()
+      * ```
+      */
+    get workflowAction(): Prisma.WorkflowActionDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
 }

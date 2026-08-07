@@ -48,7 +48,8 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineExtension = exports.NullsOrder = exports.SortOrder = exports.AuditLogScalarFieldEnum = exports.ProductUnitScalarFieldEnum = exports.ProductScalarFieldEnum = exports.ManufacturerScalarFieldEnum = exports.UserRoleScalarFieldEnum = exports.RoleScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.PackagingTypeScalarFieldEnum = exports.DosageFormScalarFieldEnum = exports.MedicineCategoryScalarFieldEnum = exports.AuditLogScalarFieldEnum = exports.ProductUnitAuditLogScalarFieldEnum = exports.ProductUnitScalarFieldEnum = exports.ProductScalarFieldEnum = exports.ManufacturerScalarFieldEnum = exports.UserRoleScalarFieldEnum = exports.RoleScalarFieldEnum = exports.OrgRoleTemplatePermissionScalarFieldEnum = exports.OrgRoleTemplateScalarFieldEnum = exports.MembershipRoleScalarFieldEnum = exports.MembershipScalarFieldEnum = exports.RolePermissionScalarFieldEnum = exports.OrganizationRoleScalarFieldEnum = exports.BranchScalarFieldEnum = exports.OrganizationProfileScalarFieldEnum = exports.OrganizationScalarFieldEnum = exports.OrganizationTypeScalarFieldEnum = exports.PlatformUserRoleScalarFieldEnum = exports.PlatformRoleScalarFieldEnum = exports.PermissionScalarFieldEnum = exports.PasswordResetTokenScalarFieldEnum = exports.EmailVerificationTokenScalarFieldEnum = exports.TwoFactorSecretScalarFieldEnum = exports.LoginHistoryScalarFieldEnum = exports.DeviceScalarFieldEnum = exports.RefreshTokenScalarFieldEnum = exports.SessionScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.defineExtension = exports.NullsOrder = exports.SortOrder = exports.WorkflowActionScalarFieldEnum = exports.WorkflowInstanceScalarFieldEnum = exports.WorkflowStepDefinitionScalarFieldEnum = exports.WorkflowDefinitionScalarFieldEnum = exports.NotificationScalarFieldEnum = exports.PaymentScalarFieldEnum = exports.CouponScalarFieldEnum = exports.ListingReviewScalarFieldEnum = exports.WishlistItemScalarFieldEnum = exports.OrderLineScalarFieldEnum = exports.OrderScalarFieldEnum = exports.CartItemScalarFieldEnum = exports.CartScalarFieldEnum = exports.ListingScalarFieldEnum = exports.MarketplaceCategoryScalarFieldEnum = exports.AddressScalarFieldEnum = exports.CustomerProfileScalarFieldEnum = exports.CustodyTransferLineScalarFieldEnum = exports.CustodyTransferScalarFieldEnum = exports.ScanEventScalarFieldEnum = exports.TrackableUnitScalarFieldEnum = exports.PackagingInstanceScalarFieldEnum = exports.InventoryMovementScalarFieldEnum = exports.InventoryPositionScalarFieldEnum = exports.WarehouseScalarFieldEnum = exports.WarehouseTypeScalarFieldEnum = exports.BatchScalarFieldEnum = exports.PackageDefinitionScalarFieldEnum = exports.VariantScalarFieldEnum = exports.MedicineScalarFieldEnum = exports.BrandScalarFieldEnum = exports.ProductFamilyScalarFieldEnum = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/client"));
 /**
  * Prisma Errors
@@ -104,12 +105,68 @@ exports.JsonNull = runtime.JsonNull;
 exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
     User: 'User',
+    Session: 'Session',
+    RefreshToken: 'RefreshToken',
+    Device: 'Device',
+    LoginHistory: 'LoginHistory',
+    TwoFactorSecret: 'TwoFactorSecret',
+    EmailVerificationToken: 'EmailVerificationToken',
+    PasswordResetToken: 'PasswordResetToken',
+    Permission: 'Permission',
+    PlatformRole: 'PlatformRole',
+    PlatformUserRole: 'PlatformUserRole',
+    OrganizationType: 'OrganizationType',
+    Organization: 'Organization',
+    OrganizationProfile: 'OrganizationProfile',
+    Branch: 'Branch',
+    OrganizationRole: 'OrganizationRole',
+    RolePermission: 'RolePermission',
+    Membership: 'Membership',
+    MembershipRole: 'MembershipRole',
+    OrgRoleTemplate: 'OrgRoleTemplate',
+    OrgRoleTemplatePermission: 'OrgRoleTemplatePermission',
     Role: 'Role',
     UserRole: 'UserRole',
     Manufacturer: 'Manufacturer',
     Product: 'Product',
     ProductUnit: 'ProductUnit',
-    AuditLog: 'AuditLog'
+    ProductUnitAuditLog: 'ProductUnitAuditLog',
+    AuditLog: 'AuditLog',
+    MedicineCategory: 'MedicineCategory',
+    DosageForm: 'DosageForm',
+    PackagingType: 'PackagingType',
+    ProductFamily: 'ProductFamily',
+    Brand: 'Brand',
+    Medicine: 'Medicine',
+    Variant: 'Variant',
+    PackageDefinition: 'PackageDefinition',
+    Batch: 'Batch',
+    WarehouseType: 'WarehouseType',
+    Warehouse: 'Warehouse',
+    InventoryPosition: 'InventoryPosition',
+    InventoryMovement: 'InventoryMovement',
+    PackagingInstance: 'PackagingInstance',
+    TrackableUnit: 'TrackableUnit',
+    ScanEvent: 'ScanEvent',
+    CustodyTransfer: 'CustodyTransfer',
+    CustodyTransferLine: 'CustodyTransferLine',
+    CustomerProfile: 'CustomerProfile',
+    Address: 'Address',
+    MarketplaceCategory: 'MarketplaceCategory',
+    Listing: 'Listing',
+    Cart: 'Cart',
+    CartItem: 'CartItem',
+    Order: 'Order',
+    OrderLine: 'OrderLine',
+    WishlistItem: 'WishlistItem',
+    ListingReview: 'ListingReview',
+    Coupon: 'Coupon',
+    Payment: 'Payment',
+    Notification: 'Notification',
+    WorkflowDefinition: 'WorkflowDefinition',
+    WorkflowStepDefinition: 'WorkflowStepDefinition',
+    WorkflowInstance: 'WorkflowInstance',
+    WorkflowAction: 'WorkflowAction'
 };
 /**
  * Enums
@@ -125,8 +182,186 @@ exports.UserScalarFieldEnum = {
     lastName: 'lastName',
     phoneNumber: 'phoneNumber',
     isActive: 'isActive',
+    status: 'status',
+    emailVerifiedAt: 'emailVerifiedAt',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+exports.SessionScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    deviceId: 'deviceId',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    createdAt: 'createdAt'
+};
+exports.RefreshTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    sessionId: 'sessionId',
+    tokenHash: 'tokenHash',
+    familyId: 'familyId',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    replacedByToken: 'replacedByToken',
+    createdAt: 'createdAt'
+};
+exports.DeviceScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    fingerprint: 'fingerprint',
+    lastSeenAt: 'lastSeenAt',
+    createdAt: 'createdAt'
+};
+exports.LoginHistoryScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    success: 'success',
+    reason: 'reason',
+    createdAt: 'createdAt'
+};
+exports.TwoFactorSecretScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    secret: 'secret',
+    enabled: 'enabled',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.EmailVerificationTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+};
+exports.PasswordResetTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+};
+exports.PermissionScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    description: 'description',
+    group: 'group',
+    createdAt: 'createdAt'
+};
+exports.PlatformRoleScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt'
+};
+exports.PlatformUserRoleScalarFieldEnum = {
+    userId: 'userId',
+    roleId: 'roleId',
+    assignedAt: 'assignedAt'
+};
+exports.OrganizationTypeScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt'
+};
+exports.OrganizationScalarFieldEnum = {
+    id: 'id',
+    typeId: 'typeId',
+    name: 'name',
+    slug: 'slug',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.OrganizationProfileScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    companyEmail: 'companyEmail',
+    companyPhone: 'companyPhone',
+    website: 'website',
+    address: 'address',
+    city: 'city',
+    state: 'state',
+    country: 'country',
+    postalCode: 'postalCode',
+    licenseNumber: 'licenseNumber',
+    registrationNumber: 'registrationNumber',
+    taxId: 'taxId',
+    nafdacNumber: 'nafdacNumber',
+    sonCertification: 'sonCertification',
+    supportingDocuments: 'supportingDocuments',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.BranchScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    name: 'name',
+    code: 'code',
+    address: 'address',
+    city: 'city',
+    state: 'state',
+    country: 'country',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.OrganizationRoleScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    key: 'key',
+    name: 'name',
+    description: 'description',
+    isSystem: 'isSystem',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.RolePermissionScalarFieldEnum = {
+    id: 'id',
+    permissionId: 'permissionId',
+    platformRoleId: 'platformRoleId',
+    organizationRoleId: 'organizationRoleId'
+};
+exports.MembershipScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    userId: 'userId',
+    status: 'status',
+    defaultBranchId: 'defaultBranchId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.MembershipRoleScalarFieldEnum = {
+    membershipId: 'membershipId',
+    roleId: 'roleId',
+    assignedAt: 'assignedAt'
+};
+exports.OrgRoleTemplateScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt'
+};
+exports.OrgRoleTemplatePermissionScalarFieldEnum = {
+    id: 'id',
+    templateId: 'templateId',
+    permissionId: 'permissionId'
 };
 exports.RoleScalarFieldEnum = {
     id: 'id',
@@ -212,7 +447,7 @@ exports.ProductUnitScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.AuditLogScalarFieldEnum = {
+exports.ProductUnitAuditLogScalarFieldEnum = {
     id: 'id',
     productUnitId: 'productUnitId',
     userId: 'userId',
@@ -229,6 +464,441 @@ exports.AuditLogScalarFieldEnum = {
     oldStatus: 'oldStatus',
     newStatus: 'newStatus',
     timestamp: 'timestamp'
+};
+exports.AuditLogScalarFieldEnum = {
+    id: 'id',
+    actorUserId: 'actorUserId',
+    organizationId: 'organizationId',
+    branchId: 'branchId',
+    warehouseId: 'warehouseId',
+    action: 'action',
+    entityType: 'entityType',
+    entityId: 'entityId',
+    oldValueJson: 'oldValueJson',
+    newValueJson: 'newValueJson',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    city: 'city',
+    country: 'country',
+    requestId: 'requestId',
+    metadataJson: 'metadataJson',
+    createdAt: 'createdAt'
+};
+exports.MedicineCategoryScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    parentId: 'parentId'
+};
+exports.DosageFormScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name'
+};
+exports.PackagingTypeScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    rank: 'rank'
+};
+exports.ProductFamilyScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    name: 'name',
+    description: 'description',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.BrandScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    familyId: 'familyId',
+    name: 'name',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.MedicineScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    brandId: 'brandId',
+    categoryId: 'categoryId',
+    name: 'name',
+    description: 'description',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.VariantScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    medicineId: 'medicineId',
+    dosageFormId: 'dosageFormId',
+    name: 'name',
+    strength: 'strength',
+    sku: 'sku',
+    gtin: 'gtin',
+    color: 'color',
+    size: 'size',
+    weight: 'weight',
+    attributesJson: 'attributesJson',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.PackageDefinitionScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    variantId: 'variantId',
+    packagingTypeId: 'packagingTypeId',
+    name: 'name',
+    unitsPerPackage: 'unitsPerPackage',
+    barcodeTemplate: 'barcodeTemplate',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.BatchScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    packageDefinitionId: 'packageDefinitionId',
+    batchNumber: 'batchNumber',
+    lotNumber: 'lotNumber',
+    manufactureDate: 'manufactureDate',
+    expiryDate: 'expiryDate',
+    qaStatus: 'qaStatus',
+    recallStatus: 'recallStatus',
+    productionQuantity: 'productionQuantity',
+    currentQuantity: 'currentQuantity',
+    certificatesJson: 'certificatesJson',
+    documentsJson: 'documentsJson',
+    nafdacRegistration: 'nafdacRegistration',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.WarehouseTypeScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    description: 'description'
+};
+exports.WarehouseScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    branchId: 'branchId',
+    typeId: 'typeId',
+    name: 'name',
+    code: 'code',
+    status: 'status',
+    capacityUnits: 'capacityUnits',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
+};
+exports.InventoryPositionScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    branchId: 'branchId',
+    warehouseId: 'warehouseId',
+    batchId: 'batchId',
+    packagingLevel: 'packagingLevel',
+    available: 'available',
+    reserved: 'reserved',
+    damaged: 'damaged',
+    expired: 'expired',
+    quarantined: 'quarantined',
+    returned: 'returned',
+    inTransit: 'inTransit',
+    sold: 'sold',
+    destroyed: 'destroyed',
+    version: 'version',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.InventoryMovementScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    positionId: 'positionId',
+    type: 'type',
+    quantity: 'quantity',
+    fromState: 'fromState',
+    toState: 'toState',
+    reason: 'reason',
+    actorUserId: 'actorUserId',
+    referenceType: 'referenceType',
+    referenceId: 'referenceId',
+    createdAt: 'createdAt'
+};
+exports.PackagingInstanceScalarFieldEnum = {
+    id: 'id',
+    batchId: 'batchId',
+    parentId: 'parentId',
+    level: 'level',
+    barcode: 'barcode',
+    serial: 'serial',
+    createdAt: 'createdAt'
+};
+exports.TrackableUnitScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    batchId: 'batchId',
+    packageDefinitionId: 'packageDefinitionId',
+    packagingInstanceId: 'packagingInstanceId',
+    unitNumber: 'unitNumber',
+    qrPayload: 'qrPayload',
+    signature: 'signature',
+    keyId: 'keyId',
+    status: 'status',
+    isAuthentic: 'isAuthentic',
+    currentOrganizationId: 'currentOrganizationId',
+    currentWarehouseId: 'currentWarehouseId',
+    soldToCustomerId: 'soldToCustomerId',
+    firstScannedAt: 'firstScannedAt',
+    scannedCount: 'scannedCount',
+    lastScannedAt: 'lastScannedAt',
+    isSuspicious: 'isSuspicious',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.ScanEventScalarFieldEnum = {
+    id: 'id',
+    trackableUnitId: 'trackableUnitId',
+    organizationId: 'organizationId',
+    userId: 'userId',
+    result: 'result',
+    reasonCodes: 'reasonCodes',
+    isFirstScan: 'isFirstScan',
+    payloadSnapshot: 'payloadSnapshot',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    city: 'city',
+    country: 'country',
+    metadataJson: 'metadataJson',
+    createdAt: 'createdAt'
+};
+exports.CustodyTransferScalarFieldEnum = {
+    id: 'id',
+    fromOrganizationId: 'fromOrganizationId',
+    toOrganizationId: 'toOrganizationId',
+    fromWarehouseId: 'fromWarehouseId',
+    toWarehouseId: 'toWarehouseId',
+    status: 'status',
+    notes: 'notes',
+    documentsJson: 'documentsJson',
+    createdByUserId: 'createdByUserId',
+    approvedByUserId: 'approvedByUserId',
+    receivedByUserId: 'receivedByUserId',
+    rejectedByUserId: 'rejectedByUserId',
+    rejectReason: 'rejectReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    submittedAt: 'submittedAt',
+    approvedAt: 'approvedAt',
+    shippedAt: 'shippedAt',
+    receivedAt: 'receivedAt',
+    rejectedAt: 'rejectedAt'
+};
+exports.CustodyTransferLineScalarFieldEnum = {
+    id: 'id',
+    transferId: 'transferId',
+    batchId: 'batchId',
+    packagingLevel: 'packagingLevel',
+    quantity: 'quantity'
+};
+exports.CustomerProfileScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    displayName: 'displayName',
+    phone: 'phone',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.AddressScalarFieldEnum = {
+    id: 'id',
+    customerId: 'customerId',
+    label: 'label',
+    line1: 'line1',
+    line2: 'line2',
+    city: 'city',
+    state: 'state',
+    country: 'country',
+    postalCode: 'postalCode',
+    isDefault: 'isDefault',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.MarketplaceCategoryScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt'
+};
+exports.ListingScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    packageDefinitionId: 'packageDefinitionId',
+    categoryId: 'categoryId',
+    title: 'title',
+    description: 'description',
+    price: 'price',
+    currency: 'currency',
+    status: 'status',
+    stockHint: 'stockHint',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt',
+    publishedAt: 'publishedAt'
+};
+exports.CartScalarFieldEnum = {
+    id: 'id',
+    customerId: 'customerId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.CartItemScalarFieldEnum = {
+    id: 'id',
+    cartId: 'cartId',
+    listingId: 'listingId',
+    quantity: 'quantity'
+};
+exports.OrderScalarFieldEnum = {
+    id: 'id',
+    customerId: 'customerId',
+    organizationId: 'organizationId',
+    status: 'status',
+    total: 'total',
+    currency: 'currency',
+    discountAmount: 'discountAmount',
+    couponCode: 'couponCode',
+    shippingAddressJson: 'shippingAddressJson',
+    trackingCode: 'trackingCode',
+    trackingStatus: 'trackingStatus',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    paidAt: 'paidAt',
+    confirmedAt: 'confirmedAt',
+    shippedAt: 'shippedAt',
+    deliveredAt: 'deliveredAt',
+    cancelledAt: 'cancelledAt'
+};
+exports.OrderLineScalarFieldEnum = {
+    id: 'id',
+    orderId: 'orderId',
+    listingId: 'listingId',
+    titleSnapshot: 'titleSnapshot',
+    quantity: 'quantity',
+    unitPrice: 'unitPrice',
+    currency: 'currency'
+};
+exports.WishlistItemScalarFieldEnum = {
+    id: 'id',
+    customerId: 'customerId',
+    listingId: 'listingId',
+    createdAt: 'createdAt'
+};
+exports.ListingReviewScalarFieldEnum = {
+    id: 'id',
+    listingId: 'listingId',
+    customerId: 'customerId',
+    rating: 'rating',
+    comment: 'comment',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.CouponScalarFieldEnum = {
+    id: 'id',
+    code: 'code',
+    percentOff: 'percentOff',
+    amountOff: 'amountOff',
+    currency: 'currency',
+    active: 'active',
+    minOrderTotal: 'minOrderTotal',
+    startsAt: 'startsAt',
+    endsAt: 'endsAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.PaymentScalarFieldEnum = {
+    id: 'id',
+    orderId: 'orderId',
+    customerId: 'customerId',
+    organizationId: 'organizationId',
+    provider: 'provider',
+    status: 'status',
+    amount: 'amount',
+    currency: 'currency',
+    externalId: 'externalId',
+    idempotencyKey: 'idempotencyKey',
+    failureReason: 'failureReason',
+    metadataJson: 'metadataJson',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    paidAt: 'paidAt'
+};
+exports.NotificationScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    channel: 'channel',
+    type: 'type',
+    title: 'title',
+    body: 'body',
+    dataJson: 'dataJson',
+    status: 'status',
+    readAt: 'readAt',
+    sentAt: 'sentAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.WorkflowDefinitionScalarFieldEnum = {
+    id: 'id',
+    key: 'key',
+    name: 'name',
+    description: 'description',
+    subjectType: 'subjectType',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.WorkflowStepDefinitionScalarFieldEnum = {
+    id: 'id',
+    definitionId: 'definitionId',
+    stepOrder: 'stepOrder',
+    name: 'name',
+    requiredPermissionKey: 'requiredPermissionKey'
+};
+exports.WorkflowInstanceScalarFieldEnum = {
+    id: 'id',
+    definitionId: 'definitionId',
+    subjectType: 'subjectType',
+    subjectId: 'subjectId',
+    organizationId: 'organizationId',
+    status: 'status',
+    currentStep: 'currentStep',
+    startedByUserId: 'startedByUserId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    completedAt: 'completedAt'
+};
+exports.WorkflowActionScalarFieldEnum = {
+    id: 'id',
+    instanceId: 'instanceId',
+    actorUserId: 'actorUserId',
+    stepOrder: 'stepOrder',
+    decision: 'decision',
+    comment: 'comment',
+    createdAt: 'createdAt'
 };
 exports.SortOrder = {
     asc: 'asc',

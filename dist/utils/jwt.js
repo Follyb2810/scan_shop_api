@@ -15,7 +15,10 @@ class JwtService {
     }
     static signToken(payload, options) {
         try {
-            return (0, jsonwebtoken_1.sign)(payload, this.getSecret(), Object.assign({ expiresIn: "1000h" }, options));
+            return (0, jsonwebtoken_1.sign)(payload, this.getSecret(), {
+                expiresIn: "1000h",
+                ...options,
+            });
         }
         catch (err) {
             throw new Error(`JWT signing failed: ${err.message}`);

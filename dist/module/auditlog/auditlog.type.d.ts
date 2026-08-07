@@ -1,10 +1,10 @@
-import { AuditLog, Prisma } from "../../generated/prisma/client";
-export type TAuditLogID = AuditLog["id"];
+import { ProductUnitAuditLog, Prisma } from "../../generated/prisma/client";
+export type TAuditLogID = ProductUnitAuditLog["id"];
 export type TAuditLogLookup = {
     productUnitId: string;
     userId?: string;
 };
-export type TAuditLogUpdateFields = Partial<Pick<AuditLog, "notes" | "metadata" | "ipAddress" | "userAgent" | "latitude" | "longitude" | "city" | "country" | "oldStatus" | "newStatus" | "isFirstScan">>;
+export type TAuditLogUpdateFields = Partial<Pick<ProductUnitAuditLog, "notes" | "metadata" | "ipAddress" | "userAgent" | "latitude" | "longitude" | "city" | "country" | "oldStatus" | "newStatus" | "isFirstScan">>;
 export type TAuditLogUpdate = TAuditLogLookup & TAuditLogUpdateFields;
 export type TAuditLogCreate = TAuditLogLookup & {
     action: string;
@@ -18,7 +18,7 @@ export type TAuditLogCreate = TAuditLogLookup & {
     ipAddress?: string;
     userAgent?: string;
 };
-export type AuditLogWithResponse = Prisma.AuditLogGetPayload<{
+export type AuditLogWithResponse = Prisma.ProductUnitAuditLogGetPayload<{
     include: {
         productUnit: true;
         user: true;

@@ -18,6 +18,9 @@ export type UserMinAggregateOutputType = {
     lastName: string | null;
     phoneNumber: string | null;
     isActive: boolean | null;
+    status: string | null;
+    emailVerifiedAt: Date | null;
+    deletedAt: Date | null;
     createdAt: Date | null;
     updatedAt: Date | null;
 };
@@ -29,6 +32,9 @@ export type UserMaxAggregateOutputType = {
     lastName: string | null;
     phoneNumber: string | null;
     isActive: boolean | null;
+    status: string | null;
+    emailVerifiedAt: Date | null;
+    deletedAt: Date | null;
     createdAt: Date | null;
     updatedAt: Date | null;
 };
@@ -40,6 +46,9 @@ export type UserCountAggregateOutputType = {
     lastName: number;
     phoneNumber: number;
     isActive: number;
+    status: number;
+    emailVerifiedAt: number;
+    deletedAt: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -52,6 +61,9 @@ export type UserMinAggregateInputType = {
     lastName?: true;
     phoneNumber?: true;
     isActive?: true;
+    status?: true;
+    emailVerifiedAt?: true;
+    deletedAt?: true;
     createdAt?: true;
     updatedAt?: true;
 };
@@ -63,6 +75,9 @@ export type UserMaxAggregateInputType = {
     lastName?: true;
     phoneNumber?: true;
     isActive?: true;
+    status?: true;
+    emailVerifiedAt?: true;
+    deletedAt?: true;
     createdAt?: true;
     updatedAt?: true;
 };
@@ -74,6 +89,9 @@ export type UserCountAggregateInputType = {
     lastName?: true;
     phoneNumber?: true;
     isActive?: true;
+    status?: true;
+    emailVerifiedAt?: true;
+    deletedAt?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -148,6 +166,9 @@ export type UserGroupByOutputType = {
     lastName: string | null;
     phoneNumber: string | null;
     isActive: boolean;
+    status: string;
+    emailVerifiedAt: Date | null;
+    deletedAt: Date | null;
     createdAt: Date;
     updatedAt: Date;
     _count: UserCountAggregateOutputType | null;
@@ -168,11 +189,28 @@ export type UserWhereInput = {
     lastName?: Prisma.StringNullableFilter<"User"> | string | null;
     phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null;
     isActive?: Prisma.BoolFilter<"User"> | boolean;
+    status?: Prisma.StringFilter<"User"> | string;
+    emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
+    deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     manufacturer?: Prisma.XOR<Prisma.ManufacturerNullableScalarRelationFilter, Prisma.ManufacturerWhereInput> | null;
-    auditLogs?: Prisma.AuditLogListRelationFilter;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogListRelationFilter;
+    auditActorLogs?: Prisma.AuditLogListRelationFilter;
     userRoles?: Prisma.UserRoleListRelationFilter;
+    sessions?: Prisma.SessionListRelationFilter;
+    refreshTokens?: Prisma.RefreshTokenListRelationFilter;
+    devices?: Prisma.DeviceListRelationFilter;
+    loginHistories?: Prisma.LoginHistoryListRelationFilter;
+    twoFactorSecret?: Prisma.XOR<Prisma.TwoFactorSecretNullableScalarRelationFilter, Prisma.TwoFactorSecretWhereInput> | null;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter;
+    passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter;
+    platformUserRoles?: Prisma.PlatformUserRoleListRelationFilter;
+    memberships?: Prisma.MembershipListRelationFilter;
+    workflowActions?: Prisma.WorkflowActionListRelationFilter;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceListRelationFilter;
+    customerProfile?: Prisma.XOR<Prisma.CustomerProfileNullableScalarRelationFilter, Prisma.CustomerProfileWhereInput> | null;
+    notifications?: Prisma.NotificationListRelationFilter;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -182,11 +220,28 @@ export type UserOrderByWithRelationInput = {
     lastName?: Prisma.SortOrderInput | Prisma.SortOrder;
     phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
+    deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     manufacturer?: Prisma.ManufacturerOrderByWithRelationInput;
-    auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogOrderByRelationAggregateInput;
+    auditActorLogs?: Prisma.AuditLogOrderByRelationAggregateInput;
     userRoles?: Prisma.UserRoleOrderByRelationAggregateInput;
+    sessions?: Prisma.SessionOrderByRelationAggregateInput;
+    refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput;
+    devices?: Prisma.DeviceOrderByRelationAggregateInput;
+    loginHistories?: Prisma.LoginHistoryOrderByRelationAggregateInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretOrderByWithRelationInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenOrderByRelationAggregateInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput;
+    platformUserRoles?: Prisma.PlatformUserRoleOrderByRelationAggregateInput;
+    memberships?: Prisma.MembershipOrderByRelationAggregateInput;
+    workflowActions?: Prisma.WorkflowActionOrderByRelationAggregateInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceOrderByRelationAggregateInput;
+    customerProfile?: Prisma.CustomerProfileOrderByWithRelationInput;
+    notifications?: Prisma.NotificationOrderByRelationAggregateInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -199,11 +254,28 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     lastName?: Prisma.StringNullableFilter<"User"> | string | null;
     phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null;
     isActive?: Prisma.BoolFilter<"User"> | boolean;
+    status?: Prisma.StringFilter<"User"> | string;
+    emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
+    deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     manufacturer?: Prisma.XOR<Prisma.ManufacturerNullableScalarRelationFilter, Prisma.ManufacturerWhereInput> | null;
-    auditLogs?: Prisma.AuditLogListRelationFilter;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogListRelationFilter;
+    auditActorLogs?: Prisma.AuditLogListRelationFilter;
     userRoles?: Prisma.UserRoleListRelationFilter;
+    sessions?: Prisma.SessionListRelationFilter;
+    refreshTokens?: Prisma.RefreshTokenListRelationFilter;
+    devices?: Prisma.DeviceListRelationFilter;
+    loginHistories?: Prisma.LoginHistoryListRelationFilter;
+    twoFactorSecret?: Prisma.XOR<Prisma.TwoFactorSecretNullableScalarRelationFilter, Prisma.TwoFactorSecretWhereInput> | null;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter;
+    passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter;
+    platformUserRoles?: Prisma.PlatformUserRoleListRelationFilter;
+    memberships?: Prisma.MembershipListRelationFilter;
+    workflowActions?: Prisma.WorkflowActionListRelationFilter;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceListRelationFilter;
+    customerProfile?: Prisma.XOR<Prisma.CustomerProfileNullableScalarRelationFilter, Prisma.CustomerProfileWhereInput> | null;
+    notifications?: Prisma.NotificationListRelationFilter;
 }, "id" | "email">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -213,6 +285,9 @@ export type UserOrderByWithAggregationInput = {
     lastName?: Prisma.SortOrderInput | Prisma.SortOrder;
     phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
+    deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     _count?: Prisma.UserCountOrderByAggregateInput;
@@ -230,6 +305,9 @@ export type UserScalarWhereWithAggregatesInput = {
     lastName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
+    status?: Prisma.StringWithAggregatesFilter<"User"> | string;
+    emailVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null;
+    deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
 };
@@ -241,11 +319,28 @@ export type UserCreateInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
-    auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
     userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateInput = {
     id?: string;
@@ -255,11 +350,28 @@ export type UserUncheckedCreateInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
-    auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
     userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -269,11 +381,28 @@ export type UserUpdateInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
-    auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
     userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -283,11 +412,28 @@ export type UserUncheckedUpdateInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
-    auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
     userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateManyInput = {
     id?: string;
@@ -297,6 +443,9 @@ export type UserCreateManyInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -308,6 +457,9 @@ export type UserUpdateManyMutationInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -319,6 +471,9 @@ export type UserUncheckedUpdateManyInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -330,6 +485,9 @@ export type UserCountOrderByAggregateInput = {
     lastName?: Prisma.SortOrder;
     phoneNumber?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    emailVerifiedAt?: Prisma.SortOrder;
+    deletedAt?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -341,6 +499,9 @@ export type UserMaxOrderByAggregateInput = {
     lastName?: Prisma.SortOrder;
     phoneNumber?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    emailVerifiedAt?: Prisma.SortOrder;
+    deletedAt?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -352,6 +513,9 @@ export type UserMinOrderByAggregateInput = {
     lastName?: Prisma.SortOrder;
     phoneNumber?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    emailVerifiedAt?: Prisma.SortOrder;
+    deletedAt?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -372,8 +536,119 @@ export type NullableStringFieldUpdateOperationsInput = {
 export type BoolFieldUpdateOperationsInput = {
     set?: boolean;
 };
+export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null;
+};
 export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string;
+};
+export type UserCreateNestedOneWithoutSessionsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput;
+    upsert?: Prisma.UserUpsertWithoutSessionsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>;
+};
+export type UserCreateNestedOneWithoutRefreshTokensInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput;
+    upsert?: Prisma.UserUpsertWithoutRefreshTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
+};
+export type UserCreateNestedOneWithoutDevicesInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutDevicesInput, Prisma.UserUncheckedCreateWithoutDevicesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutDevicesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutDevicesNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutDevicesInput, Prisma.UserUncheckedCreateWithoutDevicesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutDevicesInput;
+    upsert?: Prisma.UserUpsertWithoutDevicesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDevicesInput, Prisma.UserUpdateWithoutDevicesInput>, Prisma.UserUncheckedUpdateWithoutDevicesInput>;
+};
+export type UserCreateNestedOneWithoutLoginHistoriesInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutLoginHistoriesInput, Prisma.UserUncheckedCreateWithoutLoginHistoriesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutLoginHistoriesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutLoginHistoriesNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutLoginHistoriesInput, Prisma.UserUncheckedCreateWithoutLoginHistoriesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutLoginHistoriesInput;
+    upsert?: Prisma.UserUpsertWithoutLoginHistoriesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLoginHistoriesInput, Prisma.UserUpdateWithoutLoginHistoriesInput>, Prisma.UserUncheckedUpdateWithoutLoginHistoriesInput>;
+};
+export type UserCreateNestedOneWithoutTwoFactorSecretInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutTwoFactorSecretInput, Prisma.UserUncheckedCreateWithoutTwoFactorSecretInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutTwoFactorSecretInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutTwoFactorSecretNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutTwoFactorSecretInput, Prisma.UserUncheckedCreateWithoutTwoFactorSecretInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutTwoFactorSecretInput;
+    upsert?: Prisma.UserUpsertWithoutTwoFactorSecretInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTwoFactorSecretInput, Prisma.UserUpdateWithoutTwoFactorSecretInput>, Prisma.UserUncheckedUpdateWithoutTwoFactorSecretInput>;
+};
+export type UserCreateNestedOneWithoutEmailVerificationTokensInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutEmailVerificationTokensNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationTokensInput;
+    upsert?: Prisma.UserUpsertWithoutEmailVerificationTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmailVerificationTokensInput, Prisma.UserUpdateWithoutEmailVerificationTokensInput>, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>;
+};
+export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput;
+    upsert?: Prisma.UserUpsertWithoutPasswordResetTokensInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, Prisma.UserUpdateWithoutPasswordResetTokensInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>;
+};
+export type UserCreateNestedOneWithoutPlatformUserRolesInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutPlatformUserRolesInput, Prisma.UserUncheckedCreateWithoutPlatformUserRolesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlatformUserRolesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutPlatformUserRolesNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutPlatformUserRolesInput, Prisma.UserUncheckedCreateWithoutPlatformUserRolesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlatformUserRolesInput;
+    upsert?: Prisma.UserUpsertWithoutPlatformUserRolesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlatformUserRolesInput, Prisma.UserUpdateWithoutPlatformUserRolesInput>, Prisma.UserUncheckedUpdateWithoutPlatformUserRolesInput>;
+};
+export type UserCreateNestedOneWithoutMembershipsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutMembershipsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutMembershipsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutMembershipsInput;
+    upsert?: Prisma.UserUpsertWithoutMembershipsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMembershipsInput, Prisma.UserUpdateWithoutMembershipsInput>, Prisma.UserUncheckedUpdateWithoutMembershipsInput>;
 };
 export type UserCreateNestedOneWithoutUserRolesInput = {
     create?: Prisma.XOR<Prisma.UserCreateWithoutUserRolesInput, Prisma.UserUncheckedCreateWithoutUserRolesInput>;
@@ -399,19 +674,1280 @@ export type UserUpdateOneRequiredWithoutManufacturerNestedInput = {
     connect?: Prisma.UserWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutManufacturerInput, Prisma.UserUpdateWithoutManufacturerInput>, Prisma.UserUncheckedUpdateWithoutManufacturerInput>;
 };
-export type UserCreateNestedOneWithoutAuditLogsInput = {
-    create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>;
-    connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput;
+export type UserCreateNestedOneWithoutProductUnitAuditLogsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutProductUnitAuditLogsInput, Prisma.UserUncheckedCreateWithoutProductUnitAuditLogsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductUnitAuditLogsInput;
     connect?: Prisma.UserWhereUniqueInput;
 };
-export type UserUpdateOneWithoutAuditLogsNestedInput = {
-    create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>;
-    connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput;
-    upsert?: Prisma.UserUpsertWithoutAuditLogsInput;
+export type UserUpdateOneWithoutProductUnitAuditLogsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutProductUnitAuditLogsInput, Prisma.UserUncheckedCreateWithoutProductUnitAuditLogsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutProductUnitAuditLogsInput;
+    upsert?: Prisma.UserUpsertWithoutProductUnitAuditLogsInput;
     disconnect?: Prisma.UserWhereInput | boolean;
     delete?: Prisma.UserWhereInput | boolean;
     connect?: Prisma.UserWhereUniqueInput;
-    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductUnitAuditLogsInput, Prisma.UserUpdateWithoutProductUnitAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutProductUnitAuditLogsInput>;
+};
+export type UserCreateNestedOneWithoutAuditActorLogsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutAuditActorLogsInput, Prisma.UserUncheckedCreateWithoutAuditActorLogsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditActorLogsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneWithoutAuditActorLogsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutAuditActorLogsInput, Prisma.UserUncheckedCreateWithoutAuditActorLogsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditActorLogsInput;
+    upsert?: Prisma.UserUpsertWithoutAuditActorLogsInput;
+    disconnect?: Prisma.UserWhereInput | boolean;
+    delete?: Prisma.UserWhereInput | boolean;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditActorLogsInput, Prisma.UserUpdateWithoutAuditActorLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditActorLogsInput>;
+};
+export type UserCreateNestedOneWithoutCustomerProfileInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerProfileInput, Prisma.UserUncheckedCreateWithoutCustomerProfileInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerProfileInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutCustomerProfileNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerProfileInput, Prisma.UserUncheckedCreateWithoutCustomerProfileInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerProfileInput;
+    upsert?: Prisma.UserUpsertWithoutCustomerProfileInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCustomerProfileInput, Prisma.UserUpdateWithoutCustomerProfileInput>, Prisma.UserUncheckedUpdateWithoutCustomerProfileInput>;
+};
+export type UserCreateNestedOneWithoutNotificationsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput;
+    upsert?: Prisma.UserUpsertWithoutNotificationsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>;
+};
+export type UserCreateNestedOneWithoutWorkflowInstancesStartedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutWorkflowInstancesStartedInput, Prisma.UserUncheckedCreateWithoutWorkflowInstancesStartedInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkflowInstancesStartedInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneWithoutWorkflowInstancesStartedNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutWorkflowInstancesStartedInput, Prisma.UserUncheckedCreateWithoutWorkflowInstancesStartedInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkflowInstancesStartedInput;
+    upsert?: Prisma.UserUpsertWithoutWorkflowInstancesStartedInput;
+    disconnect?: Prisma.UserWhereInput | boolean;
+    delete?: Prisma.UserWhereInput | boolean;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkflowInstancesStartedInput, Prisma.UserUpdateWithoutWorkflowInstancesStartedInput>, Prisma.UserUncheckedUpdateWithoutWorkflowInstancesStartedInput>;
+};
+export type UserCreateNestedOneWithoutWorkflowActionsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutWorkflowActionsInput, Prisma.UserUncheckedCreateWithoutWorkflowActionsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkflowActionsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutWorkflowActionsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutWorkflowActionsInput, Prisma.UserUncheckedCreateWithoutWorkflowActionsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkflowActionsInput;
+    upsert?: Prisma.UserUpsertWithoutWorkflowActionsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkflowActionsInput, Prisma.UserUpdateWithoutWorkflowActionsInput>, Prisma.UserUncheckedUpdateWithoutWorkflowActionsInput>;
+};
+export type UserCreateWithoutSessionsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutSessionsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutSessionsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>;
+};
+export type UserUpsertWithoutSessionsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>;
+};
+export type UserUpdateWithoutSessionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutSessionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutRefreshTokensInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutRefreshTokensInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutRefreshTokensInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+};
+export type UserUpsertWithoutRefreshTokensInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
+};
+export type UserUpdateWithoutRefreshTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutRefreshTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutDevicesInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutDevicesInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutDevicesInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutDevicesInput, Prisma.UserUncheckedCreateWithoutDevicesInput>;
+};
+export type UserUpsertWithoutDevicesInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutDevicesInput, Prisma.UserUncheckedUpdateWithoutDevicesInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutDevicesInput, Prisma.UserUncheckedCreateWithoutDevicesInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutDevicesInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutDevicesInput, Prisma.UserUncheckedUpdateWithoutDevicesInput>;
+};
+export type UserUpdateWithoutDevicesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutDevicesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutLoginHistoriesInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutLoginHistoriesInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutLoginHistoriesInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutLoginHistoriesInput, Prisma.UserUncheckedCreateWithoutLoginHistoriesInput>;
+};
+export type UserUpsertWithoutLoginHistoriesInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutLoginHistoriesInput, Prisma.UserUncheckedUpdateWithoutLoginHistoriesInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutLoginHistoriesInput, Prisma.UserUncheckedCreateWithoutLoginHistoriesInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutLoginHistoriesInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutLoginHistoriesInput, Prisma.UserUncheckedUpdateWithoutLoginHistoriesInput>;
+};
+export type UserUpdateWithoutLoginHistoriesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutLoginHistoriesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutTwoFactorSecretInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutTwoFactorSecretInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutTwoFactorSecretInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutTwoFactorSecretInput, Prisma.UserUncheckedCreateWithoutTwoFactorSecretInput>;
+};
+export type UserUpsertWithoutTwoFactorSecretInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutTwoFactorSecretInput, Prisma.UserUncheckedUpdateWithoutTwoFactorSecretInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutTwoFactorSecretInput, Prisma.UserUncheckedCreateWithoutTwoFactorSecretInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutTwoFactorSecretInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutTwoFactorSecretInput, Prisma.UserUncheckedUpdateWithoutTwoFactorSecretInput>;
+};
+export type UserUpdateWithoutTwoFactorSecretInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutTwoFactorSecretInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutEmailVerificationTokensInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+};
+export type UserUpsertWithoutEmailVerificationTokensInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutEmailVerificationTokensInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>;
+};
+export type UserUpdateWithoutEmailVerificationTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutPasswordResetTokensInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+};
+export type UserUpsertWithoutPasswordResetTokensInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>;
+};
+export type UserUpdateWithoutPasswordResetTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutPlatformUserRolesInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutPlatformUserRolesInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutPlatformUserRolesInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutPlatformUserRolesInput, Prisma.UserUncheckedCreateWithoutPlatformUserRolesInput>;
+};
+export type UserUpsertWithoutPlatformUserRolesInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutPlatformUserRolesInput, Prisma.UserUncheckedUpdateWithoutPlatformUserRolesInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutPlatformUserRolesInput, Prisma.UserUncheckedCreateWithoutPlatformUserRolesInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutPlatformUserRolesInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutPlatformUserRolesInput, Prisma.UserUncheckedUpdateWithoutPlatformUserRolesInput>;
+};
+export type UserUpdateWithoutPlatformUserRolesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutPlatformUserRolesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutMembershipsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutMembershipsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutMembershipsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>;
+};
+export type UserUpsertWithoutMembershipsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutMembershipsInput, Prisma.UserUncheckedUpdateWithoutMembershipsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutMembershipsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutMembershipsInput, Prisma.UserUncheckedUpdateWithoutMembershipsInput>;
+};
+export type UserUpdateWithoutMembershipsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutMembershipsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutUserRolesInput = {
     id?: string;
@@ -421,10 +1957,27 @@ export type UserCreateWithoutUserRolesInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
-    auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutUserRolesInput = {
     id?: string;
@@ -434,10 +1987,27 @@ export type UserUncheckedCreateWithoutUserRolesInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
-    auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutUserRolesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -460,10 +2030,27 @@ export type UserUpdateWithoutUserRolesInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
-    auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutUserRolesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -473,10 +2060,27 @@ export type UserUncheckedUpdateWithoutUserRolesInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
-    auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutManufacturerInput = {
     id?: string;
@@ -486,10 +2090,27 @@ export type UserCreateWithoutManufacturerInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
     userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutManufacturerInput = {
     id?: string;
@@ -499,10 +2120,27 @@ export type UserUncheckedCreateWithoutManufacturerInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
     userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutManufacturerInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -525,10 +2163,27 @@ export type UserUpdateWithoutManufacturerInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
     userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutManufacturerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -538,12 +2193,29 @@ export type UserUncheckedUpdateWithoutManufacturerInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
     userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
-export type UserCreateWithoutAuditLogsInput = {
+export type UserCreateWithoutProductUnitAuditLogsInput = {
     id?: string;
     email: string;
     password: string;
@@ -551,12 +2223,29 @@ export type UserCreateWithoutAuditLogsInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
     userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
 };
-export type UserUncheckedCreateWithoutAuditLogsInput = {
+export type UserUncheckedCreateWithoutProductUnitAuditLogsInput = {
     id?: string;
     email: string;
     password: string;
@@ -564,25 +2253,42 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
     lastName?: string | null;
     phoneNumber?: string | null;
     isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
     userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
 };
-export type UserCreateOrConnectWithoutAuditLogsInput = {
+export type UserCreateOrConnectWithoutProductUnitAuditLogsInput = {
     where: Prisma.UserWhereUniqueInput;
-    create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutProductUnitAuditLogsInput, Prisma.UserUncheckedCreateWithoutProductUnitAuditLogsInput>;
 };
-export type UserUpsertWithoutAuditLogsInput = {
-    update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>;
-    create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>;
+export type UserUpsertWithoutProductUnitAuditLogsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutProductUnitAuditLogsInput, Prisma.UserUncheckedUpdateWithoutProductUnitAuditLogsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutProductUnitAuditLogsInput, Prisma.UserUncheckedCreateWithoutProductUnitAuditLogsInput>;
     where?: Prisma.UserWhereInput;
 };
-export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
+export type UserUpdateToOneWithWhereWithoutProductUnitAuditLogsInput = {
     where?: Prisma.UserWhereInput;
-    data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutProductUnitAuditLogsInput, Prisma.UserUncheckedUpdateWithoutProductUnitAuditLogsInput>;
 };
-export type UserUpdateWithoutAuditLogsInput = {
+export type UserUpdateWithoutProductUnitAuditLogsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -590,12 +2296,29 @@ export type UserUpdateWithoutAuditLogsInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
     userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
 };
-export type UserUncheckedUpdateWithoutAuditLogsInput = {
+export type UserUncheckedUpdateWithoutProductUnitAuditLogsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -603,21 +2326,727 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
     userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutAuditActorLogsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutAuditActorLogsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutAuditActorLogsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutAuditActorLogsInput, Prisma.UserUncheckedCreateWithoutAuditActorLogsInput>;
+};
+export type UserUpsertWithoutAuditActorLogsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutAuditActorLogsInput, Prisma.UserUncheckedUpdateWithoutAuditActorLogsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutAuditActorLogsInput, Prisma.UserUncheckedCreateWithoutAuditActorLogsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutAuditActorLogsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutAuditActorLogsInput, Prisma.UserUncheckedUpdateWithoutAuditActorLogsInput>;
+};
+export type UserUpdateWithoutAuditActorLogsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutAuditActorLogsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutCustomerProfileInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutCustomerProfileInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutCustomerProfileInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutCustomerProfileInput, Prisma.UserUncheckedCreateWithoutCustomerProfileInput>;
+};
+export type UserUpsertWithoutCustomerProfileInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutCustomerProfileInput, Prisma.UserUncheckedUpdateWithoutCustomerProfileInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutCustomerProfileInput, Prisma.UserUncheckedCreateWithoutCustomerProfileInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutCustomerProfileInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutCustomerProfileInput, Prisma.UserUncheckedUpdateWithoutCustomerProfileInput>;
+};
+export type UserUpdateWithoutCustomerProfileInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutCustomerProfileInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutNotificationsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>;
+};
+export type UserUpsertWithoutNotificationsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>;
+};
+export type UserUpdateWithoutNotificationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+};
+export type UserCreateWithoutWorkflowInstancesStartedInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionCreateNestedManyWithoutActorInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutWorkflowInstancesStartedInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedCreateNestedManyWithoutActorInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutWorkflowInstancesStartedInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutWorkflowInstancesStartedInput, Prisma.UserUncheckedCreateWithoutWorkflowInstancesStartedInput>;
+};
+export type UserUpsertWithoutWorkflowInstancesStartedInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutWorkflowInstancesStartedInput, Prisma.UserUncheckedUpdateWithoutWorkflowInstancesStartedInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutWorkflowInstancesStartedInput, Prisma.UserUncheckedCreateWithoutWorkflowInstancesStartedInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutWorkflowInstancesStartedInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutWorkflowInstancesStartedInput, Prisma.UserUncheckedUpdateWithoutWorkflowInstancesStartedInput>;
+};
+export type UserUpdateWithoutWorkflowInstancesStartedInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUpdateManyWithoutActorNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutWorkflowInstancesStartedInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowActions?: Prisma.WorkflowActionUncheckedUpdateManyWithoutActorNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutWorkflowActionsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipCreateNestedManyWithoutUserInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutWorkflowActionsInput = {
+    id?: string;
+    email: string;
+    password: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phoneNumber?: string | null;
+    isActive?: boolean;
+    status?: string;
+    emailVerifiedAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedCreateNestedOneWithoutUserInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutUserInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput;
+    userRoles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput;
+    sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedCreateNestedManyWithoutUserInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedCreateNestedOneWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedCreateNestedManyWithoutUserInput;
+    memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutUserInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedCreateNestedManyWithoutStartedByInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedCreateNestedOneWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutWorkflowActionsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutWorkflowActionsInput, Prisma.UserUncheckedCreateWithoutWorkflowActionsInput>;
+};
+export type UserUpsertWithoutWorkflowActionsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutWorkflowActionsInput, Prisma.UserUncheckedUpdateWithoutWorkflowActionsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutWorkflowActionsInput, Prisma.UserUncheckedCreateWithoutWorkflowActionsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutWorkflowActionsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutWorkflowActionsInput, Prisma.UserUncheckedUpdateWithoutWorkflowActionsInput>;
+};
+export type UserUpdateWithoutWorkflowActionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUpdateManyWithoutUserNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutWorkflowActionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    status?: Prisma.StringFieldUpdateOperationsInput | string;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    manufacturer?: Prisma.ManufacturerUncheckedUpdateOneWithoutUserNestedInput;
+    productUnitAuditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutUserNestedInput;
+    auditActorLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput;
+    userRoles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput;
+    loginHistories?: Prisma.LoginHistoryUncheckedUpdateManyWithoutUserNestedInput;
+    twoFactorSecret?: Prisma.TwoFactorSecretUncheckedUpdateOneWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    platformUserRoles?: Prisma.PlatformUserRoleUncheckedUpdateManyWithoutUserNestedInput;
+    memberships?: Prisma.MembershipUncheckedUpdateManyWithoutUserNestedInput;
+    workflowInstancesStarted?: Prisma.WorkflowInstanceUncheckedUpdateManyWithoutStartedByNestedInput;
+    customerProfile?: Prisma.CustomerProfileUncheckedUpdateOneWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
 /**
  * Count Type UserCountOutputType
  */
 export type UserCountOutputType = {
-    auditLogs: number;
+    productUnitAuditLogs: number;
+    auditActorLogs: number;
     userRoles: number;
+    sessions: number;
+    refreshTokens: number;
+    devices: number;
+    loginHistories: number;
+    emailVerificationTokens: number;
+    passwordResetTokens: number;
+    platformUserRoles: number;
+    memberships: number;
+    workflowActions: number;
+    workflowInstancesStarted: number;
+    notifications: number;
 };
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs;
+    productUnitAuditLogs?: boolean | UserCountOutputTypeCountProductUnitAuditLogsArgs;
+    auditActorLogs?: boolean | UserCountOutputTypeCountAuditActorLogsArgs;
     userRoles?: boolean | UserCountOutputTypeCountUserRolesArgs;
+    sessions?: boolean | UserCountOutputTypeCountSessionsArgs;
+    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs;
+    devices?: boolean | UserCountOutputTypeCountDevicesArgs;
+    loginHistories?: boolean | UserCountOutputTypeCountLoginHistoriesArgs;
+    emailVerificationTokens?: boolean | UserCountOutputTypeCountEmailVerificationTokensArgs;
+    passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs;
+    platformUserRoles?: boolean | UserCountOutputTypeCountPlatformUserRolesArgs;
+    memberships?: boolean | UserCountOutputTypeCountMembershipsArgs;
+    workflowActions?: boolean | UserCountOutputTypeCountWorkflowActionsArgs;
+    workflowInstancesStarted?: boolean | UserCountOutputTypeCountWorkflowInstancesStartedArgs;
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs;
 };
 /**
  * UserCountOutputType without action
@@ -631,7 +3060,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountProductUnitAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ProductUnitAuditLogWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditActorLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.AuditLogWhereInput;
 };
 /**
@@ -639,6 +3074,72 @@ export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.
  */
 export type UserCountOutputTypeCountUserRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.UserRoleWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.SessionWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.RefreshTokenWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.DeviceWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLoginHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.LoginHistoryWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEmailVerificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.EmailVerificationTokenWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PasswordResetTokenWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPlatformUserRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PlatformUserRoleWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MembershipWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWorkflowActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.WorkflowActionWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWorkflowInstancesStartedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.WorkflowInstanceWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.NotificationWhereInput;
 };
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -648,11 +3149,28 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     lastName?: boolean;
     phoneNumber?: boolean;
     isActive?: boolean;
+    status?: boolean;
+    emailVerifiedAt?: boolean;
+    deletedAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     manufacturer?: boolean | Prisma.User$manufacturerArgs<ExtArgs>;
-    auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>;
+    productUnitAuditLogs?: boolean | Prisma.User$productUnitAuditLogsArgs<ExtArgs>;
+    auditActorLogs?: boolean | Prisma.User$auditActorLogsArgs<ExtArgs>;
     userRoles?: boolean | Prisma.User$userRolesArgs<ExtArgs>;
+    sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
+    refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>;
+    devices?: boolean | Prisma.User$devicesArgs<ExtArgs>;
+    loginHistories?: boolean | Prisma.User$loginHistoriesArgs<ExtArgs>;
+    twoFactorSecret?: boolean | Prisma.User$twoFactorSecretArgs<ExtArgs>;
+    emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>;
+    passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>;
+    platformUserRoles?: boolean | Prisma.User$platformUserRolesArgs<ExtArgs>;
+    memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>;
+    workflowActions?: boolean | Prisma.User$workflowActionsArgs<ExtArgs>;
+    workflowInstancesStarted?: boolean | Prisma.User$workflowInstancesStartedArgs<ExtArgs>;
+    customerProfile?: boolean | Prisma.User$customerProfileArgs<ExtArgs>;
+    notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -663,6 +3181,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     lastName?: boolean;
     phoneNumber?: boolean;
     isActive?: boolean;
+    status?: boolean;
+    emailVerifiedAt?: boolean;
+    deletedAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 }, ExtArgs["result"]["user"]>;
@@ -674,6 +3195,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     lastName?: boolean;
     phoneNumber?: boolean;
     isActive?: boolean;
+    status?: boolean;
+    emailVerifiedAt?: boolean;
+    deletedAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 }, ExtArgs["result"]["user"]>;
@@ -685,14 +3209,31 @@ export type UserSelectScalar = {
     lastName?: boolean;
     phoneNumber?: boolean;
     isActive?: boolean;
+    status?: boolean;
+    emailVerifiedAt?: boolean;
+    deletedAt?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 };
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "phoneNumber" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "phoneNumber" | "isActive" | "status" | "emailVerifiedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     manufacturer?: boolean | Prisma.User$manufacturerArgs<ExtArgs>;
-    auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>;
+    productUnitAuditLogs?: boolean | Prisma.User$productUnitAuditLogsArgs<ExtArgs>;
+    auditActorLogs?: boolean | Prisma.User$auditActorLogsArgs<ExtArgs>;
     userRoles?: boolean | Prisma.User$userRolesArgs<ExtArgs>;
+    sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
+    refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>;
+    devices?: boolean | Prisma.User$devicesArgs<ExtArgs>;
+    loginHistories?: boolean | Prisma.User$loginHistoriesArgs<ExtArgs>;
+    twoFactorSecret?: boolean | Prisma.User$twoFactorSecretArgs<ExtArgs>;
+    emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>;
+    passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>;
+    platformUserRoles?: boolean | Prisma.User$platformUserRolesArgs<ExtArgs>;
+    memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>;
+    workflowActions?: boolean | Prisma.User$workflowActionsArgs<ExtArgs>;
+    workflowInstancesStarted?: boolean | Prisma.User$workflowInstancesStartedArgs<ExtArgs>;
+    customerProfile?: boolean | Prisma.User$customerProfileArgs<ExtArgs>;
+    notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -701,8 +3242,22 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: "User";
     objects: {
         manufacturer: Prisma.$ManufacturerPayload<ExtArgs> | null;
-        auditLogs: Prisma.$AuditLogPayload<ExtArgs>[];
+        productUnitAuditLogs: Prisma.$ProductUnitAuditLogPayload<ExtArgs>[];
+        auditActorLogs: Prisma.$AuditLogPayload<ExtArgs>[];
         userRoles: Prisma.$UserRolePayload<ExtArgs>[];
+        sessions: Prisma.$SessionPayload<ExtArgs>[];
+        refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[];
+        devices: Prisma.$DevicePayload<ExtArgs>[];
+        loginHistories: Prisma.$LoginHistoryPayload<ExtArgs>[];
+        twoFactorSecret: Prisma.$TwoFactorSecretPayload<ExtArgs> | null;
+        emailVerificationTokens: Prisma.$EmailVerificationTokenPayload<ExtArgs>[];
+        passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[];
+        platformUserRoles: Prisma.$PlatformUserRolePayload<ExtArgs>[];
+        memberships: Prisma.$MembershipPayload<ExtArgs>[];
+        workflowActions: Prisma.$WorkflowActionPayload<ExtArgs>[];
+        workflowInstancesStarted: Prisma.$WorkflowInstancePayload<ExtArgs>[];
+        customerProfile: Prisma.$CustomerProfilePayload<ExtArgs> | null;
+        notifications: Prisma.$NotificationPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -712,6 +3267,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         lastName: string | null;
         phoneNumber: string | null;
         isActive: boolean;
+        status: string;
+        emailVerifiedAt: Date | null;
+        deletedAt: Date | null;
         createdAt: Date;
         updatedAt: Date;
     }, ExtArgs["result"]["user"]>;
@@ -1044,8 +3602,22 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
     manufacturer<T extends Prisma.User$manufacturerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$manufacturerArgs<ExtArgs>>): Prisma.Prisma__ManufacturerClient<runtime.Types.Result.GetResult<Prisma.$ManufacturerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
-    auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    productUnitAuditLogs<T extends Prisma.User$productUnitAuditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productUnitAuditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductUnitAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    auditActorLogs<T extends Prisma.User$auditActorLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditActorLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     userRoles<T extends Prisma.User$userRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    devices<T extends Prisma.User$devicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    loginHistories<T extends Prisma.User$loginHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$loginHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoginHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    twoFactorSecret<T extends Prisma.User$twoFactorSecretArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$twoFactorSecretArgs<ExtArgs>>): Prisma.Prisma__TwoFactorSecretClient<runtime.Types.Result.GetResult<Prisma.$TwoFactorSecretPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    emailVerificationTokens<T extends Prisma.User$emailVerificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    platformUserRoles<T extends Prisma.User$platformUserRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$platformUserRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformUserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    memberships<T extends Prisma.User$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    workflowActions<T extends Prisma.User$workflowActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workflowActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    workflowInstancesStarted<T extends Prisma.User$workflowInstancesStartedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workflowInstancesStartedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkflowInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    customerProfile<T extends Prisma.User$customerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$customerProfileArgs<ExtArgs>>): Prisma.Prisma__CustomerProfileClient<runtime.Types.Result.GetResult<Prisma.$CustomerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1078,6 +3650,9 @@ export interface UserFieldRefs {
     readonly lastName: Prisma.FieldRef<"User", 'String'>;
     readonly phoneNumber: Prisma.FieldRef<"User", 'String'>;
     readonly isActive: Prisma.FieldRef<"User", 'Boolean'>;
+    readonly status: Prisma.FieldRef<"User", 'String'>;
+    readonly emailVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>;
+    readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>;
     readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>;
     readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>;
 }
@@ -1467,9 +4042,32 @@ export type User$manufacturerArgs<ExtArgs extends runtime.Types.Extensions.Inter
     where?: Prisma.ManufacturerWhereInput;
 };
 /**
- * User.auditLogs
+ * User.productUnitAuditLogs
  */
-export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$productUnitAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductUnitAuditLog
+     */
+    select?: Prisma.ProductUnitAuditLogSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ProductUnitAuditLog
+     */
+    omit?: Prisma.ProductUnitAuditLogOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ProductUnitAuditLogInclude<ExtArgs> | null;
+    where?: Prisma.ProductUnitAuditLogWhereInput;
+    orderBy?: Prisma.ProductUnitAuditLogOrderByWithRelationInput | Prisma.ProductUnitAuditLogOrderByWithRelationInput[];
+    cursor?: Prisma.ProductUnitAuditLogWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ProductUnitAuditLogScalarFieldEnum | Prisma.ProductUnitAuditLogScalarFieldEnum[];
+};
+/**
+ * User.auditActorLogs
+ */
+export type User$auditActorLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the AuditLog
      */
@@ -1511,6 +4109,295 @@ export type User$userRolesArgs<ExtArgs extends runtime.Types.Extensions.Internal
     take?: number;
     skip?: number;
     distinct?: Prisma.UserRoleScalarFieldEnum | Prisma.UserRoleScalarFieldEnum[];
+};
+/**
+ * User.sessions
+ */
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: Prisma.SessionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: Prisma.SessionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.SessionInclude<ExtArgs> | null;
+    where?: Prisma.SessionWhereInput;
+    orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[];
+    cursor?: Prisma.SessionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[];
+};
+/**
+ * User.refreshTokens
+ */
+export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: Prisma.RefreshTokenSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: Prisma.RefreshTokenOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.RefreshTokenInclude<ExtArgs> | null;
+    where?: Prisma.RefreshTokenWhereInput;
+    orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[];
+    cursor?: Prisma.RefreshTokenWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[];
+};
+/**
+ * User.devices
+ */
+export type User$devicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: Prisma.DeviceSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: Prisma.DeviceOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.DeviceInclude<ExtArgs> | null;
+    where?: Prisma.DeviceWhereInput;
+    orderBy?: Prisma.DeviceOrderByWithRelationInput | Prisma.DeviceOrderByWithRelationInput[];
+    cursor?: Prisma.DeviceWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.DeviceScalarFieldEnum | Prisma.DeviceScalarFieldEnum[];
+};
+/**
+ * User.loginHistories
+ */
+export type User$loginHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LoginHistory
+     */
+    select?: Prisma.LoginHistorySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the LoginHistory
+     */
+    omit?: Prisma.LoginHistoryOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.LoginHistoryInclude<ExtArgs> | null;
+    where?: Prisma.LoginHistoryWhereInput;
+    orderBy?: Prisma.LoginHistoryOrderByWithRelationInput | Prisma.LoginHistoryOrderByWithRelationInput[];
+    cursor?: Prisma.LoginHistoryWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.LoginHistoryScalarFieldEnum | Prisma.LoginHistoryScalarFieldEnum[];
+};
+/**
+ * User.twoFactorSecret
+ */
+export type User$twoFactorSecretArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorSecret
+     */
+    select?: Prisma.TwoFactorSecretSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the TwoFactorSecret
+     */
+    omit?: Prisma.TwoFactorSecretOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.TwoFactorSecretInclude<ExtArgs> | null;
+    where?: Prisma.TwoFactorSecretWhereInput;
+};
+/**
+ * User.emailVerificationTokens
+ */
+export type User$emailVerificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerificationToken
+     */
+    select?: Prisma.EmailVerificationTokenSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EmailVerificationToken
+     */
+    omit?: Prisma.EmailVerificationTokenOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EmailVerificationTokenInclude<ExtArgs> | null;
+    where?: Prisma.EmailVerificationTokenWhereInput;
+    orderBy?: Prisma.EmailVerificationTokenOrderByWithRelationInput | Prisma.EmailVerificationTokenOrderByWithRelationInput[];
+    cursor?: Prisma.EmailVerificationTokenWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.EmailVerificationTokenScalarFieldEnum | Prisma.EmailVerificationTokenScalarFieldEnum[];
+};
+/**
+ * User.passwordResetTokens
+ */
+export type User$passwordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: Prisma.PasswordResetTokenSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: Prisma.PasswordResetTokenOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PasswordResetTokenInclude<ExtArgs> | null;
+    where?: Prisma.PasswordResetTokenWhereInput;
+    orderBy?: Prisma.PasswordResetTokenOrderByWithRelationInput | Prisma.PasswordResetTokenOrderByWithRelationInput[];
+    cursor?: Prisma.PasswordResetTokenWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PasswordResetTokenScalarFieldEnum | Prisma.PasswordResetTokenScalarFieldEnum[];
+};
+/**
+ * User.platformUserRoles
+ */
+export type User$platformUserRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformUserRole
+     */
+    select?: Prisma.PlatformUserRoleSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PlatformUserRole
+     */
+    omit?: Prisma.PlatformUserRoleOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PlatformUserRoleInclude<ExtArgs> | null;
+    where?: Prisma.PlatformUserRoleWhereInput;
+    orderBy?: Prisma.PlatformUserRoleOrderByWithRelationInput | Prisma.PlatformUserRoleOrderByWithRelationInput[];
+    cursor?: Prisma.PlatformUserRoleWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PlatformUserRoleScalarFieldEnum | Prisma.PlatformUserRoleScalarFieldEnum[];
+};
+/**
+ * User.memberships
+ */
+export type User$membershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Membership
+     */
+    select?: Prisma.MembershipSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Membership
+     */
+    omit?: Prisma.MembershipOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MembershipInclude<ExtArgs> | null;
+    where?: Prisma.MembershipWhereInput;
+    orderBy?: Prisma.MembershipOrderByWithRelationInput | Prisma.MembershipOrderByWithRelationInput[];
+    cursor?: Prisma.MembershipWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.MembershipScalarFieldEnum | Prisma.MembershipScalarFieldEnum[];
+};
+/**
+ * User.workflowActions
+ */
+export type User$workflowActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkflowAction
+     */
+    select?: Prisma.WorkflowActionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the WorkflowAction
+     */
+    omit?: Prisma.WorkflowActionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.WorkflowActionInclude<ExtArgs> | null;
+    where?: Prisma.WorkflowActionWhereInput;
+    orderBy?: Prisma.WorkflowActionOrderByWithRelationInput | Prisma.WorkflowActionOrderByWithRelationInput[];
+    cursor?: Prisma.WorkflowActionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.WorkflowActionScalarFieldEnum | Prisma.WorkflowActionScalarFieldEnum[];
+};
+/**
+ * User.workflowInstancesStarted
+ */
+export type User$workflowInstancesStartedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkflowInstance
+     */
+    select?: Prisma.WorkflowInstanceSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the WorkflowInstance
+     */
+    omit?: Prisma.WorkflowInstanceOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.WorkflowInstanceInclude<ExtArgs> | null;
+    where?: Prisma.WorkflowInstanceWhereInput;
+    orderBy?: Prisma.WorkflowInstanceOrderByWithRelationInput | Prisma.WorkflowInstanceOrderByWithRelationInput[];
+    cursor?: Prisma.WorkflowInstanceWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.WorkflowInstanceScalarFieldEnum | Prisma.WorkflowInstanceScalarFieldEnum[];
+};
+/**
+ * User.customerProfile
+ */
+export type User$customerProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerProfile
+     */
+    select?: Prisma.CustomerProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CustomerProfile
+     */
+    omit?: Prisma.CustomerProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CustomerProfileInclude<ExtArgs> | null;
+    where?: Prisma.CustomerProfileWhereInput;
+};
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: Prisma.NotificationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: Prisma.NotificationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.NotificationInclude<ExtArgs> | null;
+    where?: Prisma.NotificationWhereInput;
+    orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[];
+    cursor?: Prisma.NotificationWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[];
 };
 /**
  * User without action

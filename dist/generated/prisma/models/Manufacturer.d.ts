@@ -849,9 +849,6 @@ export type NullableIntFieldUpdateOperationsInput = {
     multiply?: number;
     divide?: number;
 };
-export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null;
-};
 export type ManufacturerCreateNestedOneWithoutProductsInput = {
     create?: Prisma.XOR<Prisma.ManufacturerCreateWithoutProductsInput, Prisma.ManufacturerUncheckedCreateWithoutProductsInput>;
     connectOrCreate?: Prisma.ManufacturerCreateOrConnectWithoutProductsInput;

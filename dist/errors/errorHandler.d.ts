@@ -1,3 +1,7 @@
-import { Response, NextFunction } from "express";
-export declare const errorHandler: (err: unknown, res: Response, _next?: NextFunction) => Response<any, Record<string, any>>;
+import { Response } from "express";
+/**
+ * Legacy controller helper: `errorHandler(err, res)`.
+ * Prefer `next(err)` + middleware `errorHandler` in new modules.
+ */
+export declare function errorHandler(err: unknown, res: Response): Response;
 //# sourceMappingURL=errorHandler.d.ts.map

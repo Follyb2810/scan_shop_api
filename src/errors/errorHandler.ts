@@ -1,46 +1,39 @@
-import { Response, NextFunction } from "express";
-import { BaseError } from "./BaseError";
+import { Response } from "express";
 import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
+import { ZodError } from "zod";
+import { BaseError } from "./BaseError";
+import { AppError } from "../shared/errors";
+import { sendError } from "../shared/http";
 
-export const errorHandler = (
-  err: unknown,
-  res: Response,
-  _next?: NextFunction
-) => {
-  console.error(`[Error]`, err);
+/**
+ * Legacy controller helper: `errorHandler(err, res)`.
+ * Prefer `next(err)` + middleware `errorHandler` in new modules.
+ */
+export function errorHandler(err: unknown, res: Response): Response {
+  if (err instanceof AppError) {
+    return sendError(res, err.statusCode, err.code, err.message, err.details);
+  }
 
   if (err instanceof BaseError) {
-    return res.status(err.statusCode).json({
-      success: false,
-      status: err.status,
-      message: err.message,
-    });
+    return sendError(res, err.statusCode, err.status, err.message);
   }
 
-  if (err instanceof Error) {
-    return res.status(500).json({
-      success: false,
-      status: "Server Error",
-      message: err.message,
-    });
+  if (err instanceof ZodError) {
+    return sendError(res, 400, "VALIDATION_ERROR", "Invalid request", err.flatten());
   }
+
   if (err instanceof TokenExpiredError) {
-    return res.status(401).json({
-      success: false,
-      status: "Server Error",
-      message: "Token expired",
-    });
-  } else if (err instanceof JsonWebTokenError) {
-    return res.status(401).json({
-      success: false,
-      status: "Server Error",
-      message: "Invalid token",
-    });
+    return sendError(res, 401, "TOKEN_EXPIRED", "Token expired");
   }
 
-  return res.status(500).json({
-    success: false,
-    status: "Server Error",
-    message: typeof err === "string" ? err : "Something went wrong.",
-  });
-};
+  if (err instanceof JsonWebTokenError) {
+    return sendError(res, 401, "INVALID_TOKEN", "Invalid token");
+  }
+
+  if (typeof err === "string") {
+    return sendError(res, 400, err, err);
+  }
+
+  const message = err instanceof Error ? err.message : "Something went wrong.";
+  return sendError(res, 500, "INTERNAL_ERROR", message);
+}

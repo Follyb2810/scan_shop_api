@@ -1,4 +1,8 @@
 import { AuditLogWithResponse, TAuditLogCreate, TAuditLogUpdateFields } from "./auditlog.type";
+/**
+ * Legacy product-unit audit trail (ENABLE_LEGACY_MODULES).
+ * General compliance audit lives in src/modules/audit (Step 18).
+ */
 export declare class AuditLogRepository {
     private readonly db;
     create(data: TAuditLogCreate): Promise<AuditLogWithResponse>;

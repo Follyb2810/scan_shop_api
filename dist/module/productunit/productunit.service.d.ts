@@ -7,14 +7,16 @@ export declare class ProductUnitService {
     private generateBarcode;
     private generateSignature;
     create(userId: string, data: TProductUnitCreate): Promise<{
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -31,22 +33,20 @@ export declare class ProductUnitService {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     getById(id: string): Promise<({
         manufacturer: {
+            address: string;
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: string;
             city: string;
             country: string;
-            createdAt: Date;
-            updatedAt: Date;
             companyName: string;
             companyEmail: string;
             companyPhone: string;
             website: string | null;
-            address: string;
             state: string;
             postalCode: string | null;
             licenseNumber: string;
@@ -68,10 +68,10 @@ export declare class ProductUnitService {
         product: {
             name: string;
             id: string;
-            manufacturerId: string;
+            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            isActive: boolean;
+            manufacturerId: string;
             description: string | null;
             category: string;
             sku: string;
@@ -102,14 +102,16 @@ export declare class ProductUnitService {
             timestamp: Date;
         }[];
     } & {
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -126,22 +128,20 @@ export declare class ProductUnitService {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }) | null>;
     getByProduct(productId: string): Promise<({
         manufacturer: {
+            address: string;
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             userId: string;
             city: string;
             country: string;
-            createdAt: Date;
-            updatedAt: Date;
             companyName: string;
             companyEmail: string;
             companyPhone: string;
             website: string | null;
-            address: string;
             state: string;
             postalCode: string | null;
             licenseNumber: string;
@@ -163,10 +163,10 @@ export declare class ProductUnitService {
         product: {
             name: string;
             id: string;
-            manufacturerId: string;
+            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            isActive: boolean;
+            manufacturerId: string;
             description: string | null;
             category: string;
             sku: string;
@@ -197,14 +197,16 @@ export declare class ProductUnitService {
             timestamp: Date;
         }[];
     } & {
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -221,18 +223,18 @@ export declare class ProductUnitService {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     })[]>;
     update(id: string, data: TProductUnitUpdate): Promise<{
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -249,18 +251,18 @@ export declare class ProductUnitService {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     delete(id: string, userId?: string): Promise<{
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -277,8 +279,6 @@ export declare class ProductUnitService {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     scan(id: string, data: {
         userId?: string;
@@ -292,14 +292,16 @@ export declare class ProductUnitService {
         message: string;
         isFirstScan: boolean;
         unit: {
+            status: string;
             id: string;
-            barcode: string;
-            productId: string;
+            createdAt: Date;
+            updatedAt: Date;
             manufacturerId: string;
+            productId: string;
+            barcode: string;
             unitNumber: number;
             qrCodeData: string | null;
             signature: string | null;
-            status: string;
             isAuthentic: boolean;
             firstScannedAt: Date | null;
             firstScannedBy: string | null;
@@ -316,8 +318,6 @@ export declare class ProductUnitService {
             reportedCount: number;
             isSuspicious: boolean;
             suspiciousNotes: string | null;
-            createdAt: Date;
-            updatedAt: Date;
         };
     }>;
     markAsSold(id: string, data: {
@@ -325,14 +325,16 @@ export declare class ProductUnitService {
         soldBy?: string;
         notes?: string;
     }): Promise<{
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -349,8 +351,6 @@ export declare class ProductUnitService {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     reportSuspicious(id: string, data: {
         reportedBy?: string;
@@ -360,14 +360,16 @@ export declare class ProductUnitService {
         city?: string;
         country?: string;
     }): Promise<{
+        status: string;
         id: string;
-        barcode: string;
-        productId: string;
+        createdAt: Date;
+        updatedAt: Date;
         manufacturerId: string;
+        productId: string;
+        barcode: string;
         unitNumber: number;
         qrCodeData: string | null;
         signature: string | null;
-        status: string;
         isAuthentic: boolean;
         firstScannedAt: Date | null;
         firstScannedBy: string | null;
@@ -384,8 +386,6 @@ export declare class ProductUnitService {
         reportedCount: number;
         isSuspicious: boolean;
         suspiciousNotes: string | null;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
 }
 export declare const productUnitService: ProductUnitService;

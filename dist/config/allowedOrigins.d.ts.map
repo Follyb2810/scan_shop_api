@@ -1,1 +1,1 @@
-{"version":3,"file":"allowedOrigins.d.ts","sourceRoot":"","sources":["../../src/config/allowedOrigins.ts"],"names":[],"mappings":"AAAA,eAAO,MAAM,cAAc,UAM1B,CAAC"}
+{"version":3,"file":"allowedOrigins.d.ts","sourceRoot":"","sources":["../../src/config/allowedOrigins.ts"],"names":[],"mappings":"AAEA,gEAAgE;AAChE,eAAO,MAAM,cAAc,UAAc,CAAC"}

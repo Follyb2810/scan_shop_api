@@ -358,7 +358,7 @@ export type ProductUnitWhereInput = {
     updatedAt?: Prisma.DateTimeFilter<"ProductUnit"> | Date | string;
     manufacturer?: Prisma.XOR<Prisma.ManufacturerScalarRelationFilter, Prisma.ManufacturerWhereInput>;
     product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>;
-    auditLogs?: Prisma.AuditLogListRelationFilter;
+    auditLogs?: Prisma.ProductUnitAuditLogListRelationFilter;
 };
 export type ProductUnitOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -389,7 +389,7 @@ export type ProductUnitOrderByWithRelationInput = {
     updatedAt?: Prisma.SortOrder;
     manufacturer?: Prisma.ManufacturerOrderByWithRelationInput;
     product?: Prisma.ProductOrderByWithRelationInput;
-    auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput;
+    auditLogs?: Prisma.ProductUnitAuditLogOrderByRelationAggregateInput;
 };
 export type ProductUnitWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -424,7 +424,7 @@ export type ProductUnitWhereUniqueInput = Prisma.AtLeast<{
     updatedAt?: Prisma.DateTimeFilter<"ProductUnit"> | Date | string;
     manufacturer?: Prisma.XOR<Prisma.ManufacturerScalarRelationFilter, Prisma.ManufacturerWhereInput>;
     product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>;
-    auditLogs?: Prisma.AuditLogListRelationFilter;
+    auditLogs?: Prisma.ProductUnitAuditLogListRelationFilter;
 }, "id" | "barcode" | "productId_unitNumber">;
 export type ProductUnitOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -517,7 +517,7 @@ export type ProductUnitCreateInput = {
     updatedAt?: Date | string;
     manufacturer: Prisma.ManufacturerCreateNestedOneWithoutProductUnitsInput;
     product: Prisma.ProductCreateNestedOneWithoutUnitsInput;
-    auditLogs?: Prisma.AuditLogCreateNestedManyWithoutProductUnitInput;
+    auditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutProductUnitInput;
 };
 export type ProductUnitUncheckedCreateInput = {
     id?: string;
@@ -546,7 +546,7 @@ export type ProductUnitUncheckedCreateInput = {
     suspiciousNotes?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProductUnitInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutProductUnitInput;
 };
 export type ProductUnitUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -575,7 +575,7 @@ export type ProductUnitUpdateInput = {
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUpdateOneRequiredWithoutProductUnitsNestedInput;
     product?: Prisma.ProductUpdateOneRequiredWithoutUnitsNestedInput;
-    auditLogs?: Prisma.AuditLogUpdateManyWithoutProductUnitNestedInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutProductUnitNestedInput;
 };
 export type ProductUnitUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -604,7 +604,7 @@ export type ProductUnitUncheckedUpdateInput = {
     suspiciousNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutProductUnitNestedInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutProductUnitNestedInput;
 };
 export type ProductUnitCreateManyInput = {
     id?: string;
@@ -932,7 +932,7 @@ export type ProductUnitCreateWithoutManufacturerInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     product: Prisma.ProductCreateNestedOneWithoutUnitsInput;
-    auditLogs?: Prisma.AuditLogCreateNestedManyWithoutProductUnitInput;
+    auditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutProductUnitInput;
 };
 export type ProductUnitUncheckedCreateWithoutManufacturerInput = {
     id?: string;
@@ -960,7 +960,7 @@ export type ProductUnitUncheckedCreateWithoutManufacturerInput = {
     suspiciousNotes?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProductUnitInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutProductUnitInput;
 };
 export type ProductUnitCreateOrConnectWithoutManufacturerInput = {
     where: Prisma.ProductUnitWhereUniqueInput;
@@ -1039,7 +1039,7 @@ export type ProductUnitCreateWithoutProductInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     manufacturer: Prisma.ManufacturerCreateNestedOneWithoutProductUnitsInput;
-    auditLogs?: Prisma.AuditLogCreateNestedManyWithoutProductUnitInput;
+    auditLogs?: Prisma.ProductUnitAuditLogCreateNestedManyWithoutProductUnitInput;
 };
 export type ProductUnitUncheckedCreateWithoutProductInput = {
     id?: string;
@@ -1067,7 +1067,7 @@ export type ProductUnitUncheckedCreateWithoutProductInput = {
     suspiciousNotes?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProductUnitInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUncheckedCreateNestedManyWithoutProductUnitInput;
 };
 export type ProductUnitCreateOrConnectWithoutProductInput = {
     where: Prisma.ProductUnitWhereUniqueInput;
@@ -1267,7 +1267,7 @@ export type ProductUnitUpdateWithoutManufacturerInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     product?: Prisma.ProductUpdateOneRequiredWithoutUnitsNestedInput;
-    auditLogs?: Prisma.AuditLogUpdateManyWithoutProductUnitNestedInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutProductUnitNestedInput;
 };
 export type ProductUnitUncheckedUpdateWithoutManufacturerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1295,7 +1295,7 @@ export type ProductUnitUncheckedUpdateWithoutManufacturerInput = {
     suspiciousNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutProductUnitNestedInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutProductUnitNestedInput;
 };
 export type ProductUnitUncheckedUpdateManyWithoutManufacturerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1377,7 +1377,7 @@ export type ProductUnitUpdateWithoutProductInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     manufacturer?: Prisma.ManufacturerUpdateOneRequiredWithoutProductUnitsNestedInput;
-    auditLogs?: Prisma.AuditLogUpdateManyWithoutProductUnitNestedInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUpdateManyWithoutProductUnitNestedInput;
 };
 export type ProductUnitUncheckedUpdateWithoutProductInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1405,7 +1405,7 @@ export type ProductUnitUncheckedUpdateWithoutProductInput = {
     suspiciousNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutProductUnitNestedInput;
+    auditLogs?: Prisma.ProductUnitAuditLogUncheckedUpdateManyWithoutProductUnitNestedInput;
 };
 export type ProductUnitUncheckedUpdateManyWithoutProductInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1456,7 +1456,7 @@ export type ProductUnitCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
  * ProductUnitCountOutputType without action
  */
 export type ProductUnitCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.AuditLogWhereInput;
+    where?: Prisma.ProductUnitAuditLogWhereInput;
 };
 export type ProductUnitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -1598,7 +1598,7 @@ export type $ProductUnitPayload<ExtArgs extends runtime.Types.Extensions.Interna
     objects: {
         manufacturer: Prisma.$ManufacturerPayload<ExtArgs>;
         product: Prisma.$ProductPayload<ExtArgs>;
-        auditLogs: Prisma.$AuditLogPayload<ExtArgs>[];
+        auditLogs: Prisma.$ProductUnitAuditLogPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -1958,7 +1958,7 @@ export interface Prisma__ProductUnitClient<T, Null = never, ExtArgs extends runt
     readonly [Symbol.toStringTag]: "PrismaPromise";
     manufacturer<T extends Prisma.ManufacturerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ManufacturerDefaultArgs<ExtArgs>>): Prisma.Prisma__ManufacturerClient<runtime.Types.Result.GetResult<Prisma.$ManufacturerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
-    auditLogs<T extends Prisma.ProductUnit$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductUnit$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    auditLogs<T extends Prisma.ProductUnit$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductUnit$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductUnitAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2391,23 +2391,23 @@ export type ProductUnitDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
  */
 export type ProductUnit$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AuditLog
+     * Select specific fields to fetch from the ProductUnitAuditLog
      */
-    select?: Prisma.AuditLogSelect<ExtArgs> | null;
+    select?: Prisma.ProductUnitAuditLogSelect<ExtArgs> | null;
     /**
-     * Omit specific fields from the AuditLog
+     * Omit specific fields from the ProductUnitAuditLog
      */
-    omit?: Prisma.AuditLogOmit<ExtArgs> | null;
+    omit?: Prisma.ProductUnitAuditLogOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Prisma.AuditLogInclude<ExtArgs> | null;
-    where?: Prisma.AuditLogWhereInput;
-    orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[];
-    cursor?: Prisma.AuditLogWhereUniqueInput;
+    include?: Prisma.ProductUnitAuditLogInclude<ExtArgs> | null;
+    where?: Prisma.ProductUnitAuditLogWhereInput;
+    orderBy?: Prisma.ProductUnitAuditLogOrderByWithRelationInput | Prisma.ProductUnitAuditLogOrderByWithRelationInput[];
+    cursor?: Prisma.ProductUnitAuditLogWhereUniqueInput;
     take?: number;
     skip?: number;
-    distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[];
+    distinct?: Prisma.ProductUnitAuditLogScalarFieldEnum | Prisma.ProductUnitAuditLogScalarFieldEnum[];
 };
 /**
  * ProductUnit without action
