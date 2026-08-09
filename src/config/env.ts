@@ -19,19 +19,32 @@ const envSchema = z.object({
   APP_URL: z.string().default("http://localhost:5000"),
 
   /**
-   * Development default: SQLite.
-   * Production / Docker Postgres example:
+   * Default: Docker Postgres.
    * postgresql://postgres:postgres@localhost:5432/healthcare_os?schema=public
+   * SQLite fallback: DATABASE_PROVIDER=sqlite + DATABASE_URL=file:./dev.db
    */
   DATABASE_URL: z.string().min(1),
-  DATABASE_PROVIDER: z.enum(["sqlite", "postgresql"]).default("sqlite"),
+  DATABASE_PROVIDER: z.enum(["sqlite", "postgresql"]).default("postgresql"),
 
-  /** Redis — used from Step 2+ (cache, BullMQ). Off by default for SQLite-only local boot. */
+  /** Redis — used for cache / BullMQ when REDIS_ENABLED=true. */
   REDIS_URL: z.string().default("redis://localhost:6379"),
   REDIS_ENABLED: z
     .enum(["true", "false"])
     .default("false")
     .transform((v) => v === "true"),
+
+  /**
+   * Idempotent catalog + demo seed on every boot.
+   * Defaults on in development; off in test/production unless overridden.
+   */
+  AUTO_SEED_DEMO: z
+    .enum(["true", "false"])
+    .optional()
+    .transform((v) => {
+      if (v === "true") return true;
+      if (v === "false") return false;
+      return process.env.NODE_ENV === "development";
+    }),
 
   JWT_ACCESS_SECRET: z.string().min(16).default("dev-access-secret-change-me"),
   JWT_REFRESH_SECRET: z

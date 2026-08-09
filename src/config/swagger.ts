@@ -1,7 +1,10 @@
+import path from "path";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
 import { env } from "./env";
+
+const root = process.cwd();
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -10,7 +13,7 @@ const options: swaggerJsdoc.Options = {
       title: "Healthcare OS API",
       version: "1.0.0-rc.1",
       description:
-        "Multi-tenant Healthcare Commerce, Supply Chain & Verification Platform (Steps 0–21).",
+        "Multi-tenant Healthcare Commerce, Supply Chain & Verification Platform. Use Authorize with a JWT from POST /api/v1/auth/login. Staff routes need X-Organization-Id.",
     },
     servers: [
       {
@@ -87,11 +90,11 @@ const options: swaggerJsdoc.Options = {
       { name: "System" },
     ],
   },
-  // Modular routes under src/modules
   apis: [
-    "src/api/v1/**/*.ts",
-    "src/modules/**/presentation/**/*.ts",
-    "src/app.ts",
+    path.join(root, "src/api/v1/**/*.ts"),
+    path.join(root, "src/modules/**/presentation/**/*.ts"),
+    path.join(root, "src/config/openapi-routes.yaml"),
+    path.join(root, "src/app.ts"),
   ],
 };
 
@@ -105,6 +108,11 @@ export function setupSwagger(app: Express): void {
       customSiteTitle: "Healthcare OS API Docs",
       swaggerOptions: {
         persistAuthorization: true,
+        displayRequestDuration: true,
+        docExpansion: "list",
+        filter: true,
+        tagsSorter: "alpha",
+        operationsSorter: "alpha",
       },
     })
   );

@@ -1,0 +1,688 @@
+# Supplemental OpenAPI paths so Swagger UI lists the full mobile/staff surface.
+# Route handlers live in src/modules/**/presentation; keep this in sync when adding APIs.
+
+paths:
+  /api/v1/marketplace/categories:
+    get:
+      tags: [Marketplace]
+      summary: List marketplace categories
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/listings/{listingId}:
+    get:
+      tags: [Marketplace]
+      summary: Get listing detail
+      parameters:
+        - in: path
+          name: listingId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/search:
+    get:
+      tags: [Marketplace]
+      summary: Search listings
+      parameters:
+        - in: query
+          name: q
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/listings/{listingId}/publish:
+    post:
+      tags: [Marketplace]
+      summary: Publish listing (starts approval workflow)
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: "#/components/parameters/OrganizationIdHeader"
+        - in: path
+          name: listingId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/seller/listings:
+    get:
+      tags: [Marketplace]
+      summary: List seller org listings
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: "#/components/parameters/OrganizationIdHeader"
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/cart:
+    get:
+      tags: [Marketplace]
+      summary: Get my cart
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Marketplace]
+      summary: Upsert cart item
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [listingId, quantity]
+              properties:
+                listingId: { type: string }
+                quantity: { type: integer, minimum: 1 }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/cart/{listingId}:
+    delete:
+      tags: [Marketplace]
+      summary: Remove cart item
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: listingId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/orders/{orderId}:
+    get:
+      tags: [Marketplace]
+      summary: Get my order
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/wishlist:
+    get:
+      tags: [Marketplace]
+      summary: List wishlist
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/wishlist/{listingId}:
+    post:
+      tags: [Marketplace]
+      summary: Add to wishlist
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: listingId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    delete:
+      tags: [Marketplace]
+      summary: Remove from wishlist
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: listingId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/marketplace/reviews:
+    post:
+      tags: [Marketplace]
+      summary: Create review
+      security: [{ bearerAuth: [] }]
+      responses:
+        "201": { description: Created }
+
+  /api/v1/marketplace/coupons/validate:
+    get:
+      tags: [Marketplace]
+      summary: Validate coupon code
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: query
+          name: code
+          required: true
+          schema: { type: string }
+        - in: query
+          name: orderTotal
+          schema: { type: number }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/orders:
+    get:
+      tags: [Marketplace]
+      summary: Org orders inbox (staff)
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: "#/components/parameters/OrganizationIdHeader"
+      responses:
+        "200": { description: OK }
+
+  /api/v1/orders/{orderId}/fulfill:
+    patch:
+      tags: [Marketplace]
+      summary: Fulfill org order
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: "#/components/parameters/OrganizationIdHeader"
+        - in: path
+          name: orderId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/customers/profile:
+    post:
+      tags: [Customer]
+      summary: Ensure customer profile
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: OK }
+
+  /api/v1/customers/me/addresses:
+    get:
+      tags: [Customer]
+      summary: List addresses
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Customer]
+      summary: Create address
+      security: [{ bearerAuth: [] }]
+      responses:
+        "201": { description: Created }
+
+  /api/v1/customers/me/addresses/{addressId}:
+    patch:
+      tags: [Customer]
+      summary: Update address
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: addressId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    delete:
+      tags: [Customer]
+      summary: Delete address
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: addressId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/payments/stub/pay:
+    post:
+      tags: [Payments]
+      summary: Sandbox complete payment
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [orderId]
+              properties:
+                orderId: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/payments/{id}:
+    get:
+      tags: [Payments]
+      summary: Get payment by id
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/notifications/{id}/read:
+    post:
+      tags: [Notifications]
+      summary: Mark notification read
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/notifications/read-all:
+    post:
+      tags: [Notifications]
+      summary: Mark all notifications read
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}:
+    get:
+      tags: [Organizations]
+      summary: Get organization
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    patch:
+      tags: [Organizations]
+      summary: Update organization
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/branches:
+    get:
+      tags: [Organizations]
+      summary: List branches
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Organizations]
+      summary: Create branch
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/members:
+    get:
+      tags: [Organizations]
+      summary: List members
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Organizations]
+      summary: Invite / add member
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/families:
+    get:
+      tags: [Catalog]
+      summary: List product families
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Catalog]
+      summary: Create family
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/medicines:
+    get:
+      tags: [Catalog]
+      summary: List medicines
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Catalog]
+      summary: Create medicine
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/medicines/{medicineId}/submit:
+    post:
+      tags: [Catalog]
+      summary: Submit medicine for approval
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: medicineId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/packages:
+    get:
+      tags: [Catalog]
+      summary: List packages
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Catalog]
+      summary: Create package
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/hierarchy:
+    post:
+      tags: [Catalog]
+      summary: Create catalog hierarchy in one request
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/inventory/movements:
+    get:
+      tags: [Inventory]
+      summary: Inventory movements
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/inventory/adjust:
+    post:
+      tags: [Inventory]
+      summary: Adjust inventory
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/inventory/reserve:
+    post:
+      tags: [Inventory]
+      summary: Reserve inventory
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/inventory/release:
+    post:
+      tags: [Inventory]
+      summary: Release reservation
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/inventory/transfer:
+    post:
+      tags: [Inventory]
+      summary: Internal inventory transfer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/verification/units/generate:
+    post:
+      tags: [Verification]
+      summary: Generate signed trackable units
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/verification/units:
+    get:
+      tags: [Verification]
+      summary: List trackable units
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/supply-chain/transfers:
+    get:
+      tags: [SupplyChain]
+      summary: List custody transfers
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [SupplyChain]
+      summary: Create custody transfer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+      responses:
+        "201": { description: Created }
+
+  /api/v1/organizations/{orgId}/supply-chain/transfers/{transferId}:
+    get:
+      tags: [SupplyChain]
+      summary: Get custody transfer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: transferId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/supply-chain/transfers/{transferId}/submit:
+    post:
+      tags: [SupplyChain]
+      summary: Submit transfer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: transferId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/supply-chain/transfers/{transferId}/approve:
+    post:
+      tags: [SupplyChain]
+      summary: Approve transfer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: transferId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/supply-chain/transfers/{transferId}/ship:
+    post:
+      tags: [SupplyChain]
+      summary: Ship transfer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: transferId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/organizations/{orgId}/supply-chain/transfers/{transferId}/receive:
+    post:
+      tags: [SupplyChain]
+      summary: Receive transfer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: orgId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: transferId
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: OK }
+
+  /api/v1/analytics/sales:
+    get:
+      tags: [Analytics]
+      summary: Sales analytics
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: "#/components/parameters/OrganizationIdHeader"
+      responses:
+        "200": { description: OK }
+
+  /api/v1/analytics/inventory:
+    get:
+      tags: [Analytics]
+      summary: Inventory analytics
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: "#/components/parameters/OrganizationIdHeader"
+      responses:
+        "200": { description: OK }
+
+  /api/v1/analytics/verification:
+    get:
+      tags: [Analytics]
+      summary: Verification analytics
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: "#/components/parameters/OrganizationIdHeader"
+      responses:
+        "200": { description: OK }

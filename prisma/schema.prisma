@@ -1,14 +1,15 @@
-// Development database: SQLite (file:./dev.db).
-// Docker Compose provides PostgreSQL + Redis for infra parity / future switch.
-// When ready to move off SQLite, set DATABASE_PROVIDER=postgresql and change
-// this provider to "postgresql" (see docs/progress/STEP-01.md).
+// Active database: PostgreSQL (Docker Compose: npm run docker:up).
+// For local SQLite instead, set provider = "sqlite" and
+// DATABASE_PROVIDER=sqlite / DATABASE_URL=file:./dev.db in .env.
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider             = "prisma-client"
+  output               = "../src/generated/prisma"
+  moduleFormat         = "cjs"
+  importFileExtension  = ""
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   // url comes from prisma.config.ts / DATABASE_URL
 }
 

@@ -21,11 +21,14 @@ import {
 import { registerAuditEventHandlers } from "../modules/audit";
 import { registerNotificationEventHandlers } from "../modules/notification";
 import { startNotificationWorkers } from "../modules/notification";
+import { seedDemoData } from "../seed/demo-data";
 
 let bootstrapped = false;
 
 /**
  * Register shared infrastructure in the DI container and warm connections.
+ * Reference catalogs always seed; demo users/orgs seed when AUTO_SEED_DEMO is on
+ * (default in development) so each `npm run dev` / nodemon restart stays usable.
  */
 export async function bootstrapInfrastructure(): Promise<void> {
   if (bootstrapped) return;
@@ -59,12 +62,21 @@ export async function bootstrapInfrastructure(): Promise<void> {
     logger.warn({ err }, "Catalog seed skipped/failed (will retry on next boot)");
   }
 
+  if (env.AUTO_SEED_DEMO) {
+    try {
+      await seedDemoData();
+    } catch (err) {
+      logger.warn({ err }, "Demo seed skipped/failed (will retry on next boot)");
+    }
+  }
+
   bootstrapped = true;
   logger.info(
     {
       databaseProvider: env.DATABASE_PROVIDER,
       redisEnabled: env.REDIS_ENABLED,
       redisReady: redisOk,
+      autoSeedDemo: env.AUTO_SEED_DEMO,
     },
     "Infrastructure bootstrapped"
   );
